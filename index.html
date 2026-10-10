@@ -35,17 +35,26 @@ img.proof{width:55px;height:55px;object-fit:cover}
 
 <body>
 
-<div id="login" class="card">
-<h2>KANHAI INFRACON</h2>
-<p>Construction ERP Login</p>
-<label>Username</label>
-<input id="username" value="admin">
-<label>Password</label>
-<input id="password" type="password">
-<button class="btn" onclick="login()">Login</button>
-<p id="loginMsg"></p>
-<small>Demo login: admin / admin123</small>
-</div>
+<script>
+function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const loginMsg = document.getElementById("loginMsg");
+
+    if (username === "admin" && password === "admin123") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").classList.remove("hidden");
+        loginMsg.textContent = "";
+    } else if (username === "site" && password === "site123") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").classList.remove("hidden");
+        loginMsg.textContent = "";
+    } else {
+        loginMsg.textContent = "Invalid username or password!";
+        loginMsg.style.color = "red";
+    }
+}
+</script>
 
 <div id="app" class="hidden">
 <header>🏗️ KANHAI INFRACON | SITE ERP</header>
