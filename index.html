@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAHANI INFRACON | Management System</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f1f5f9;
+ color:#172033;
+}
+header{
+ background:#102c4e;
+ color:white;
+ padding:22px 16px;
+}
+header h1{margin:0;font-size:23px}
+header p{margin:8px 0 0;font-size:13px;color:#cbd5e1}
+nav{
+ display:flex;
+ overflow-x:auto;
+ background:#174674;
+ padding:10px;
+ gap:8px;
+}
+nav button{
+ border:0;
+ background:#fff;
+ color:#174674;
+ padding:11px 14px;
+ border-radius:6px;
+ white-space:nowrap;
+ font-weight:bold;
+}
+main{padding:16px;max-width:1100px;margin:auto}
+h2{color:#174674}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+ gap:12px;
+}
+.card{
+ background:white;
+ padding:17px;
+ border-radius:10px;
+ box-shadow:0 2px 7px #0000000c;
+}
+.card strong{font-size:23px;display:block;margin-top:10px}
+.panel{
+ background:white;
+ padding:18px;
+ border-radius:10px;
+ margin-top:15px;
+}
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ margin:7px 0 12px;
+ border:1px solid #cbd5e1;
+ border-radius:6px;
+ font-size:15px;
+}
+.action{
+ background:#087f8c;
+ color:white;
+ border:0;
+ border-radius:6px;
+ padding:12px 16px;
+ font-weight:bold;
+}
+table{width:100%;border-collapse:collapse}
+th,td{
+ padding:10px;
+ border-bottom:1px solid #ddd;
+ text-align:left;
+}
+.tablewrap{overflow-x:auto}
+section{display:none}
+section.active{display:block}
+small{color:#64748b}
+footer{text-align:center;padding:22px;color:#64748b}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>KAHANI INFRACON</h1>
+<p>Integrated Construction Management System</p>
+<p>Project Management | Quality | Billing | Admin</p>
+</header>
+
+<nav>
+<button onclick="showPage('home')">Dashboard</button>
+<button onclick="showPage('projects')">Projects</button>
+<button onclick="showPage('dpr')">DPR / DLR</button>
+<button onclick="showPage('billing')">Billing</button>
+<button onclick="showPage('concrete')">Concrete</button>
+<button onclick="showPage('inventory')">Inventory</button>
+<button onclick="showPage('manpower')">Manpower</button>
+<button onclick="showPage('quality')">Quality</button>
+<button onclick="showPage('admin')">Admin</button>
+<button onclick="showPage('ai')">AI Assistant</button>
+</nav>
+
+<main>
+
+<section id="home" class="active">
+<h2>Construction Dashboard</h2>
+<p>Welcome to KAHANI INFRACON Management System.</p>
+<div class="cards">
+<div class="card">Total Projects<strong id="projectCount">0</strong></div>
+<div class="card">DPR Reports<strong id="dprCount">0</strong></div>
+<div class="card">Billing Records<strong id="billCount">0</strong></div>
+<div class="card">Inventory Items<strong id="stockCount">0</strong></div>
+</div>
+<div class="panel">
+<h3>System Modules</h3>
+<p>Manage projects, site reports, quantities, billing, stock and quality records.</p>
+<small>Starter version — records are stored in this browser.</small>
+</div>
+</section>
+
+<section id="projects">
+<h2>Project Management</h2>
+<div class="panel">
+<form id="projectForm">
+<label>Project Name</label>
+<input id="projectName" required placeholder="Enter project name">
+<label>Site Location</label>
+<input id="projectLocation" placeholder="Enter site location">
+<label>Project Manager</label>
+<input id="projectManager" placeholder="Manager name">
+<button class="action">Add Project</button>
+</form>
+<div class="tablewrap"><table>
+<thead><tr><th>Project</th><th>Location</th><th>Manager</th></tr></thead>
+<tbody id="projectTable"></tbody>
+</table></div>
+</div>
+</section>
+
+<section id="dpr">
+<h2>Daily Progress Report (DPR / DLR)</h2>
+<div class="panel">
+<form id="dprForm">
+<label>Report Date</label>
+<input id="dprDate" type="date" required>
+<label>Project / Site</label>
+<input id="dprSite" required placeholder="Site name">
+<label>Work Description</label>
+<textarea id="dprWork" required placeholder="RCC, shuttering, steel, concrete etc."></textarea>
+<label>Manpower</label>
+<input id="dprManpower" type="number" min="0" placeholder="Total workers">
+<label>Equipment / Remarks</label>
+<textarea id="dprRemarks" placeholder="Equipment, delays, issues"></textarea>
+<button class="action">Save DPR</button>
+</form>
+<div class="tablewrap"><table>
+<thead><tr><th>Date</th><th>Site</th><th>Work</th><th>Manpower</th></tr></thead>
+<tbody id="dprTable"></tbody>
+</table></div>
+</div>
+</section>
+
+<section id="billing">
+<h2>Construction Billing</h2>
+<div class="panel">
+<form id="billForm">
+<label>Work Description</label>
+<input id="billWork" required placeholder="RCC / Brickwork / Plaster">
+<label>Quantity</label>
+<input id="billQty" type="number" min="0" step="any" required>
+<label>Rate (₹)</label>
+<input id="billRate" type="number" min="0" step="any" required>
+<label>GST (%) — optional</label>
+<input id="billGst" type="number" min="0" value="0">
+<button class="action">Calculate & Save</button>
+</form>
+<h3 id="billResult">Total: ₹0.00</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Work</th><th>Qty</th><th>Rate</th><th>Base Amount</th><th>Total with GST</th></tr></thead>
+<tbody id="billTable"></tbody>
+</table></div>
+</div>
+</section>
+
+<section id="concrete">
+<h2>Concrete Calculator</h2>
+<div class="panel">
+<label>Length (metres)</label>
+<input id="cLength" type="number" min="0" step="any" placeholder="Length">
+<label>Width (metres)</label>
+<input id="cWidth" type="number" min="0" step="any" placeholder="Width">
+<label>Depth / Thickness (metres)</label>
+<input id="cDepth" type="number" min="0" step="any" placeholder="Thickness">
+<button class="action" onclick="calculateConcrete()">Calculate Concrete</button>
+<h3 id="concreteResult">Concrete Quantity: 0 m³</h3>
+<small>Basic rectangular volume only. Add wastage separately if required.</small>
+</div>
+</section>
+
+<section id="inventory">
+<h2>Material & Inventory</h2>
+<div class="panel">
+<form id="stockForm">
+<label>Material Name</label>
+<input id="stockName" required placeholder="Cement / Steel / Sand">
+<label>Quantity</label>
+<input id="stockQty" type="number" min="0" step="any" required>
+<label>Unit</label>
+<select id="stockUnit">
+<option>Bag</option><option>Kg</option><option>MT</option>
+<option>m³</option><option>Nos</option><option>Rft</option>
+</select>
+<button class="action">Add Stock Record</button>
+</form>
+<div class="tablewrap"><table>
+<thead><tr><th>Material</th><th>Quantity</th><th>Unit</th></tr></thead>
+<tbody id="stockTable"></tbody>
+</table></div>
+</div>
+</section>
+
+<section id="manpower">
+<h2>Manpower Attendance</h2>
+<div class="panel">
+<form id="manpowerForm">
+<label>Date</label>
+<input id="mpDate" type="date" required>
+<label>Trade</label>
+<select id="mpTrade">
+<option>Bar Bender</option><option>Carpenter</option>
+<option>Mason</option><option>Helper</option>
+<option>Electrician</option><option>Other</option>
+</select>
+<label>Present Workers</label>
+<input id="mpPresent" type="number" min="0" required>
+<label>Remarks</label>
+<input id="mpRemarks" placeholder="Shift / work details">
+<button class="action">Save Attendance</button>
+</form>
+<div class="tablewrap"><table>
+<thead><tr><th>Date</th><th>Trade</th><th>Present</th><th>Remarks</th></tr></thead>
+<tbody id="mpTable"></tbody>
+</table></div>
+</div>
+</section>
+
+<section id="quality">
+<h2>Quality Control</h2>
+<div class="panel">
+<form id="qualityForm">
+<label>Inspection Date</label>
+<input id="qDate" type="date" required>
+<label>Activity</label>
+<select id="qActivity">
+<option>Slab Steel</option><option>Shuttering</option>
+<option>Concrete</option><option>Blockwork</option>
+<option>Waterproofing</option><option>Other</option>
+</select>
+<label>Inspection Status</label>
+<select id="qStatus">
+<option>Pending</option><option>Approved</option>
+<option>Rectification Required</option>
+</select>
+<label>Observation / Remarks</label>
+<textarea id="qRemarks" placeholder="Inspection details"></textarea>
+<button class="action">Save Inspection</button>
+</form>
+<div id="qTable"></div>
+</div>
+</section>
+
+<section id="admin">
+<h2>Admin Department</h2>
+<div class="panel">
+<h3>Administration Records</h3>
+<form id="adminForm">
+<label>Record Type</label>
+<select id="adminType">
+<option>Document</option><option>Purchase</option>
+<option>Staff</option><option>Site Instruction</option>
+<option>Other</option>
+</select>
+<label>Subject</label>
+<input id="adminSubject" required placeholder="Enter subject">
+<label>Details</label>
+<textarea id="adminDetails" placeholder="Enter details"></textarea>
+<button class="action">Save Admin Record</button>
+</form>
+<div id="adminTable"></div>
+</div>
+</section>
+
+<section id="ai">
+<h2>AI Assistant</h2>
+<div class="panel">
+<p>Ask a basic construction calculation question.</p>
+<label>Your Question</label>
+<textarea id="aiQuestion" placeholder="Example: Calculate concrete for 5 x 4 x 0.15 metres"></textarea>
+<button class="action" onclick="askAssistant()">Get Answer</button>
+<div id="aiAnswer" style="white-space:pre-wrap;margin-top:15px"></div>
+<hr>
+<small>This is a basic local assistant, not a connected AI model. Live AI requires an AI service and secure server configuration.</small>
+</div>
+</section>
+
+</main>
+
+<footer>KAHANI INFRACON © 2026 | Construction Management System</footer>
+
+<script>
+const keys = [
+'projects','dprs','bills','stocks','manpower','quality','admin'
+];
+
+function getData(key){
+ try{return JSON.parse(localStorage.getItem('ki_'+key)||'[]')}
+ catch(e){return []}
+}
+
+function saveData(key,data){
+ localStorage.setItem('ki_'+key,JSON.stringify(data));
+}
+
+function esc(value){
+ return String(value??'').replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+ });
+}
+
+function showPage(id){
+ document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function addRow(key,row){
+ const data=getData(key);
+ data.push(row);
+ saveData(key,data);
+ renderAll();
+}
+
+function renderAll(){
+ const p=getData('projects');
+ projectTable.innerHTML=p.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.location)}</td><td>${esc(x.manager)}</td></tr>`).join('');
+
+ const d=getData('dprs');
+ dprTable.innerHTML=d.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.site)}</td><td>${esc(x.work)}</td><td>${esc(x.manpower)}</td></tr>`).join('');
+
+ const b=getData('bills');
+ billTable.innerHTML=b.map(x=>`<tr><td>${esc(x.work)}</td><td>${x.qty}</td><td>₹${x.rate.toFixed(2)}</td><td>₹${x.base.toFixed(2)}</td><td>₹${x.total.toFixed(2)}</td></tr>`).join('');
+
+ const s=getData('stocks');
+ stockTable.innerHTML=s.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.qty}</td><td>${esc(x.unit)}</td></tr>`).join('');
+
+ const m=getData('manpower');
+ mpTable.innerHTML=m.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.trade)}</td><td>${x.present}</td><td>${esc(x.remarks)}</td></tr>`).join('');
+
+ const q=getData('quality');
+ qTable.innerHTML='<div class="tablewrap"><table><tr><th>Date</th><th>Activity</th><th>Status</th><th>Remarks</th></tr>'+q.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.activity)}</td><td>${esc(x.status)}</td><td>${esc(x.remarks)}</td></tr>`).join('')+'</table></div>';
+
+ const a=getData('admin');
+ adminTable.innerHTML='<div class="tablewrap"><table><tr><th>Type</th><th>Subject</th><th>Details</th></tr>'+a.map(x=>`<tr><td>${esc(x.type)}</td><td>${esc(x.subject)}</td><td>${esc(x.details)}</td></tr>`).join('')+'</table></div>';
+
+ projectCount.textContent=p.length;
+ dprCount.textContent=d.length;
+ billCount.textContent=b.length;
+ stockCount.textContent=s.length;
+}
+
+projectForm.onsubmit=e=>{
+ e.preventDefault();
+ addRow('projects',{name:projectName.value,location:projectLocation.value,manager:projectManager.value});
+ e.target.reset();
+};
+
+dprForm.onsubmit=e=>{
+ e.preventDefault();
+ addRow('dprs',{date:dprDate.value,site:dprSite.value,work:dprWork.value,manpower:Number(dprManpower.value)||0,remarks:dprRemarks.value});
+ e.target.reset();
+};
+
+billForm.onsubmit=e=>{
+ e.preventDefault();
+ const qty=Number(billQty.value),rate=Number(billRate.value),gst=Number(billGst.value)||0;
+ const base=qty*rate,total=base*(1+gst/100);
+ addRow('bills',{work:billWork.value,qty,rate,base,total});
+ billResult.textContent='Last Bill Total: ₹'+total.toFixed(2);
+ e.target.reset();
+ billGst.value=0;
+};
+
+function calculateConcrete(){
+ const l=Number(cLength.value),w=Number(cWidth.value),d=Number(cDepth.value);
+ if(l<=0||w<=0||d<=0){concreteResult.textContent='Please enter all dimensions greater than zero.';return}
+ concreteResult.textContent='Concrete Quantity: '+(l*w*d).toFixed(3)+' m³';
+}
+
+stockForm.onsubmit=e=>{
+ e.preventDefault();
+ addRow('stocks',{name:stockName.value,qty:Number(stockQty.value),unit:stockUnit.value});
+ e.target.reset();
+};
+
+manpowerForm.onsubmit=e=>{
+ e.preventDefault();
+ addRow('manpower',{date:mpDate.value,trade:mpTrade.value,present:Number(mpPresent.value),remarks:mpRemarks.value});
+ e.target.reset();
+};
+
+qualityForm.onsubmit=e=>{
+ e.preventDefault();
+ addRow('quality',{date:qDate.value,activity:qActivity.value,status:qStatus.value,remarks:qRemarks.value});
+ e.target.reset();
+};
+
+adminForm.onsubmit=e=>{
+ e.preventDefault();
+ addRow('admin',{type:adminType.value,subject:adminSubject.value,details:adminDetails.value});
+ e.target.reset();
+};
+
+function askAssistant(){
+ const q=aiQuestion.value.trim();
+ if(!q){aiAnswer.textContent='Please enter your question.';return}
+ const match=q.match(/(\d+(?:\.\d+)?)\s*(?:x|×|\*)\s*(\d+(?:\.\d+)?)\s*(?:x|×|\*)\s*(\d+(?:\.\d+)?)/i);
+ if(match){
+  aiAnswer.textContent='Basic volume calculation:\n'+match[1]+' × '+match[2]+' × '+match[3]+' = '+(Number(match[1])*Number(match[2])*Number(match[3])).toFixed(3)+' cubic metres (m³).\n\nPlease verify the dimensions and units.';
+ }else{
+  aiAnswer.textContent='This starter assistant does not yet have a live AI connection. You can use the Concrete Calculator for dimensions or connect a secure AI service in a later step.';
+ }
+}
+
+renderAll();
+</script>
+
+</body>
+</html>
