@@ -2,443 +2,376 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAHANI INFRACON | Management System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanhai Infracon ERP</title>
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f1f5f9;
- color:#172033;
+body{margin:0;font-family:Arial;background:#f1f5f9;color:#17243a}
+header{background:#142b49;color:white;padding:15px;font-weight:bold}
+.layout{display:flex;min-height:90vh}
+aside{width:230px;background:#10213b;padding:12px;flex-shrink:0}
+aside button{display:block;width:100%;padding:12px;margin:4px 0;border:0;border-radius:5px;text-align:left;background:#203957;color:white}
+aside button:hover{background:#009c91}
+main{flex:1;padding:18px;min-width:0}
+.card{background:white;padding:16px;border-radius:10px;margin-bottom:15px;box-shadow:0 2px 8px #0001}
+input,select,textarea{width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ccd5e1;border-radius:5px}
+label{font-size:13px;font-weight:bold}
+.btn{padding:11px 16px;border:0;border-radius:5px;background:#009c91;color:white;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{padding:9px;border-bottom:1px solid #ddd;text-align:left}
+.tablebox{overflow-x:auto}
+.hidden{display:none!important}
+img.proof{width:55px;height:55px;object-fit:cover}
+#login{max-width:400px;margin:60px auto;padding:25px}
+@media(max-width:700px){
+ .layout{display:block}
+ aside{width:100%;display:flex;overflow-x:auto;gap:5px}
+ aside button{min-width:130px;width:auto}
+ main{padding:10px}
 }
-header{
- background:#102c4e;
- color:white;
- padding:22px 16px;
-}
-header h1{margin:0;font-size:23px}
-header p{margin:8px 0 0;font-size:13px;color:#cbd5e1}
-nav{
- display:flex;
- overflow-x:auto;
- background:#174674;
- padding:10px;
- gap:8px;
-}
-nav button{
- border:0;
- background:#fff;
- color:#174674;
- padding:11px 14px;
- border-radius:6px;
- white-space:nowrap;
- font-weight:bold;
-}
-main{padding:16px;max-width:1100px;margin:auto}
-h2{color:#174674}
-.cards{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
- gap:12px;
-}
-.card{
- background:white;
- padding:17px;
- border-radius:10px;
- box-shadow:0 2px 7px #0000000c;
-}
-.card strong{font-size:23px;display:block;margin-top:10px}
-.panel{
- background:white;
- padding:18px;
- border-radius:10px;
- margin-top:15px;
-}
-input,select,textarea{
- width:100%;
- padding:12px;
- margin:7px 0 12px;
- border:1px solid #cbd5e1;
- border-radius:6px;
- font-size:15px;
-}
-.action{
- background:#087f8c;
- color:white;
- border:0;
- border-radius:6px;
- padding:12px 16px;
- font-weight:bold;
-}
-table{width:100%;border-collapse:collapse}
-th,td{
- padding:10px;
- border-bottom:1px solid #ddd;
- text-align:left;
-}
-.tablewrap{overflow-x:auto}
-section{display:none}
-section.active{display:block}
-small{color:#64748b}
-footer{text-align:center;padding:22px;color:#64748b}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>KAHANI INFRACON</h1>
-<p>Integrated Construction Management System</p>
-<p>Project Management | Quality | Billing | Admin</p>
-</header>
-
-<nav>
-<button onclick="showPage('home')">Dashboard</button>
-<button onclick="showPage('projects')">Projects</button>
-<button onclick="showPage('dpr')">DPR / DLR</button>
-<button onclick="showPage('billing')">Billing</button>
-<button onclick="showPage('concrete')">Concrete</button>
-<button onclick="showPage('inventory')">Inventory</button>
-<button onclick="showPage('manpower')">Manpower</button>
-<button onclick="showPage('quality')">Quality</button>
-<button onclick="showPage('admin')">Admin</button>
-<button onclick="showPage('ai')">AI Assistant</button>
-</nav>
-
-<main>
-
-<section id="home" class="active">
-<h2>Construction Dashboard</h2>
-<p>Welcome to KAHANI INFRACON Management System.</p>
-<div class="cards">
-<div class="card">Total Projects<strong id="projectCount">0</strong></div>
-<div class="card">DPR Reports<strong id="dprCount">0</strong></div>
-<div class="card">Billing Records<strong id="billCount">0</strong></div>
-<div class="card">Inventory Items<strong id="stockCount">0</strong></div>
+<div id="login" class="card">
+<h2>KANHAI INFRACON</h2>
+<p>Construction ERP Login</p>
+<label>Username</label>
+<input id="username" value="admin">
+<label>Password</label>
+<input id="password" type="password">
+<button class="btn" onclick="login()">Login</button>
+<p id="loginMsg"></p>
+<small>Demo login: admin / admin123</small>
 </div>
-<div class="panel">
-<h3>System Modules</h3>
-<p>Manage projects, site reports, quantities, billing, stock and quality records.</p>
-<small>Starter version — records are stored in this browser.</small>
+
+<div id="app" class="hidden">
+<header>🏗️ KANHAI INFRACON | SITE ERP</header>
+
+<div class="layout">
+<aside>
+<button onclick="page('dashboard')">📊 Dashboard</button>
+<button onclick="page('projects')">🏗️ Projects & Sites</button>
+<button onclick="page('dpr')">📋 DPR Report</button>
+<button onclick="page('dlr')">👷 DLR / Labour</button>
+<button onclick="page('billing')">🧾 Billing & BOQ</button>
+<button onclick="page('concrete')">🧱 Concrete Calculator</button>
+<button onclick="page('bbs')">🔩 BBS / Steel</button>
+<button onclick="page('inventory')">📦 Inventory / Store</button>
+<button onclick="page('purchase')">🛒 Purchase</button>
+<button onclick="page('accounts')">💰 Accounts</button>
+<button onclick="page('quality')">✅ QA/QC Department</button>
+<button onclick="page('safety')">🦺 Safety / HSE</button>
+<button onclick="page('planning')">📅 Planning</button>
+<button onclick="page('hr')">👷 HR / Manpower</button>
+<button onclick="page('documents')">📁 Documents</button>
+<button onclick="page('reports')">📈 Reports / Backup</button>
+<button onclick="page('admin')">⚙️ Admin / Core Departments</button>
+<button onclick="logout()">Logout</button>
+</aside>
+
+<main id="content"></main>
 </div>
-</section>
-
-<section id="projects">
-<h2>Project Management</h2>
-<div class="panel">
-<form id="projectForm">
-<label>Project Name</label>
-<input id="projectName" required placeholder="Enter project name">
-<label>Site Location</label>
-<input id="projectLocation" placeholder="Enter site location">
-<label>Project Manager</label>
-<input id="projectManager" placeholder="Manager name">
-<button class="action">Add Project</button>
-</form>
-<div class="tablewrap"><table>
-<thead><tr><th>Project</th><th>Location</th><th>Manager</th></tr></thead>
-<tbody id="projectTable"></tbody>
-</table></div>
 </div>
-</section>
-
-<section id="dpr">
-<h2>Daily Progress Report (DPR / DLR)</h2>
-<div class="panel">
-<form id="dprForm">
-<label>Report Date</label>
-<input id="dprDate" type="date" required>
-<label>Project / Site</label>
-<input id="dprSite" required placeholder="Site name">
-<label>Work Description</label>
-<textarea id="dprWork" required placeholder="RCC, shuttering, steel, concrete etc."></textarea>
-<label>Manpower</label>
-<input id="dprManpower" type="number" min="0" placeholder="Total workers">
-<label>Equipment / Remarks</label>
-<textarea id="dprRemarks" placeholder="Equipment, delays, issues"></textarea>
-<button class="action">Save DPR</button>
-</form>
-<div class="tablewrap"><table>
-<thead><tr><th>Date</th><th>Site</th><th>Work</th><th>Manpower</th></tr></thead>
-<tbody id="dprTable"></tbody>
-</table></div>
-</div>
-</section>
-
-<section id="billing">
-<h2>Construction Billing</h2>
-<div class="panel">
-<form id="billForm">
-<label>Work Description</label>
-<input id="billWork" required placeholder="RCC / Brickwork / Plaster">
-<label>Quantity</label>
-<input id="billQty" type="number" min="0" step="any" required>
-<label>Rate (₹)</label>
-<input id="billRate" type="number" min="0" step="any" required>
-<label>GST (%) — optional</label>
-<input id="billGst" type="number" min="0" value="0">
-<button class="action">Calculate & Save</button>
-</form>
-<h3 id="billResult">Total: ₹0.00</h3>
-<div class="tablewrap"><table>
-<thead><tr><th>Work</th><th>Qty</th><th>Rate</th><th>Base Amount</th><th>Total with GST</th></tr></thead>
-<tbody id="billTable"></tbody>
-</table></div>
-</div>
-</section>
-
-<section id="concrete">
-<h2>Concrete Calculator</h2>
-<div class="panel">
-<label>Length (metres)</label>
-<input id="cLength" type="number" min="0" step="any" placeholder="Length">
-<label>Width (metres)</label>
-<input id="cWidth" type="number" min="0" step="any" placeholder="Width">
-<label>Depth / Thickness (metres)</label>
-<input id="cDepth" type="number" min="0" step="any" placeholder="Thickness">
-<button class="action" onclick="calculateConcrete()">Calculate Concrete</button>
-<h3 id="concreteResult">Concrete Quantity: 0 m³</h3>
-<small>Basic rectangular volume only. Add wastage separately if required.</small>
-</div>
-</section>
-
-<section id="inventory">
-<h2>Material & Inventory</h2>
-<div class="panel">
-<form id="stockForm">
-<label>Material Name</label>
-<input id="stockName" required placeholder="Cement / Steel / Sand">
-<label>Quantity</label>
-<input id="stockQty" type="number" min="0" step="any" required>
-<label>Unit</label>
-<select id="stockUnit">
-<option>Bag</option><option>Kg</option><option>MT</option>
-<option>m³</option><option>Nos</option><option>Rft</option>
-</select>
-<button class="action">Add Stock Record</button>
-</form>
-<div class="tablewrap"><table>
-<thead><tr><th>Material</th><th>Quantity</th><th>Unit</th></tr></thead>
-<tbody id="stockTable"></tbody>
-</table></div>
-</div>
-</section>
-
-<section id="manpower">
-<h2>Manpower Attendance</h2>
-<div class="panel">
-<form id="manpowerForm">
-<label>Date</label>
-<input id="mpDate" type="date" required>
-<label>Trade</label>
-<select id="mpTrade">
-<option>Bar Bender</option><option>Carpenter</option>
-<option>Mason</option><option>Helper</option>
-<option>Electrician</option><option>Other</option>
-</select>
-<label>Present Workers</label>
-<input id="mpPresent" type="number" min="0" required>
-<label>Remarks</label>
-<input id="mpRemarks" placeholder="Shift / work details">
-<button class="action">Save Attendance</button>
-</form>
-<div class="tablewrap"><table>
-<thead><tr><th>Date</th><th>Trade</th><th>Present</th><th>Remarks</th></tr></thead>
-<tbody id="mpTable"></tbody>
-</table></div>
-</div>
-</section>
-
-<section id="quality">
-<h2>Quality Control</h2>
-<div class="panel">
-<form id="qualityForm">
-<label>Inspection Date</label>
-<input id="qDate" type="date" required>
-<label>Activity</label>
-<select id="qActivity">
-<option>Slab Steel</option><option>Shuttering</option>
-<option>Concrete</option><option>Blockwork</option>
-<option>Waterproofing</option><option>Other</option>
-</select>
-<label>Inspection Status</label>
-<select id="qStatus">
-<option>Pending</option><option>Approved</option>
-<option>Rectification Required</option>
-</select>
-<label>Observation / Remarks</label>
-<textarea id="qRemarks" placeholder="Inspection details"></textarea>
-<button class="action">Save Inspection</button>
-</form>
-<div id="qTable"></div>
-</div>
-</section>
-
-<section id="admin">
-<h2>Admin Department</h2>
-<div class="panel">
-<h3>Administration Records</h3>
-<form id="adminForm">
-<label>Record Type</label>
-<select id="adminType">
-<option>Document</option><option>Purchase</option>
-<option>Staff</option><option>Site Instruction</option>
-<option>Other</option>
-</select>
-<label>Subject</label>
-<input id="adminSubject" required placeholder="Enter subject">
-<label>Details</label>
-<textarea id="adminDetails" placeholder="Enter details"></textarea>
-<button class="action">Save Admin Record</button>
-</form>
-<div id="adminTable"></div>
-</div>
-</section>
-
-<section id="ai">
-<h2>AI Assistant</h2>
-<div class="panel">
-<p>Ask a basic construction calculation question.</p>
-<label>Your Question</label>
-<textarea id="aiQuestion" placeholder="Example: Calculate concrete for 5 x 4 x 0.15 metres"></textarea>
-<button class="action" onclick="askAssistant()">Get Answer</button>
-<div id="aiAnswer" style="white-space:pre-wrap;margin-top:15px"></div>
-<hr>
-<small>This is a basic local assistant, not a connected AI model. Live AI requires an AI service and secure server configuration.</small>
-</div>
-</section>
-
-</main>
-
-<footer>KAHANI INFRACON © 2026 | Construction Management System</footer>
 
 <script>
-const keys = [
-'projects','dprs','bills','stocks','manpower','quality','admin'
-];
+const users={admin:'admin123',site:'site123'};
+let currentUser='';
+const DB='kanhai_erp_records_v1';
 
-function getData(key){
- try{return JSON.parse(localStorage.getItem('ki_'+key)||'[]')}
- catch(e){return []}
+function getDB(){
+ try{return JSON.parse(localStorage.getItem(DB))||{}}
+ catch(e){return {}}
 }
-
-function saveData(key,data){
- localStorage.setItem('ki_'+key,JSON.stringify(data));
+function saveDB(d){
+ localStorage.setItem(DB,JSON.stringify(d));
 }
+function records(k){return getDB()[k]||[]}
 
-function esc(value){
- return String(value??'').replace(/[&<>"']/g,function(c){
-  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
- });
-}
-
-function showPage(id){
- document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
-}
-
-function addRow(key,row){
- const data=getData(key);
- data.push(row);
- saveData(key,data);
- renderAll();
-}
-
-function renderAll(){
- const p=getData('projects');
- projectTable.innerHTML=p.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.location)}</td><td>${esc(x.manager)}</td></tr>`).join('');
-
- const d=getData('dprs');
- dprTable.innerHTML=d.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.site)}</td><td>${esc(x.work)}</td><td>${esc(x.manpower)}</td></tr>`).join('');
-
- const b=getData('bills');
- billTable.innerHTML=b.map(x=>`<tr><td>${esc(x.work)}</td><td>${x.qty}</td><td>₹${x.rate.toFixed(2)}</td><td>₹${x.base.toFixed(2)}</td><td>₹${x.total.toFixed(2)}</td></tr>`).join('');
-
- const s=getData('stocks');
- stockTable.innerHTML=s.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.qty}</td><td>${esc(x.unit)}</td></tr>`).join('');
-
- const m=getData('manpower');
- mpTable.innerHTML=m.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.trade)}</td><td>${x.present}</td><td>${esc(x.remarks)}</td></tr>`).join('');
-
- const q=getData('quality');
- qTable.innerHTML='<div class="tablewrap"><table><tr><th>Date</th><th>Activity</th><th>Status</th><th>Remarks</th></tr>'+q.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.activity)}</td><td>${esc(x.status)}</td><td>${esc(x.remarks)}</td></tr>`).join('')+'</table></div>';
-
- const a=getData('admin');
- adminTable.innerHTML='<div class="tablewrap"><table><tr><th>Type</th><th>Subject</th><th>Details</th></tr>'+a.map(x=>`<tr><td>${esc(x.type)}</td><td>${esc(x.subject)}</td><td>${esc(x.details)}</td></tr>`).join('')+'</table></div>';
-
- projectCount.textContent=p.length;
- dprCount.textContent=d.length;
- billCount.textContent=b.length;
- stockCount.textContent=s.length;
-}
-
-projectForm.onsubmit=e=>{
- e.preventDefault();
- addRow('projects',{name:projectName.value,location:projectLocation.value,manager:projectManager.value});
- e.target.reset();
-};
-
-dprForm.onsubmit=e=>{
- e.preventDefault();
- addRow('dprs',{date:dprDate.value,site:dprSite.value,work:dprWork.value,manpower:Number(dprManpower.value)||0,remarks:dprRemarks.value});
- e.target.reset();
-};
-
-billForm.onsubmit=e=>{
- e.preventDefault();
- const qty=Number(billQty.value),rate=Number(billRate.value),gst=Number(billGst.value)||0;
- const base=qty*rate,total=base*(1+gst/100);
- addRow('bills',{work:billWork.value,qty,rate,base,total});
- billResult.textContent='Last Bill Total: ₹'+total.toFixed(2);
- e.target.reset();
- billGst.value=0;
-};
-
-function calculateConcrete(){
- const l=Number(cLength.value),w=Number(cWidth.value),d=Number(cDepth.value);
- if(l<=0||w<=0||d<=0){concreteResult.textContent='Please enter all dimensions greater than zero.';return}
- concreteResult.textContent='Concrete Quantity: '+(l*w*d).toFixed(3)+' m³';
-}
-
-stockForm.onsubmit=e=>{
- e.preventDefault();
- addRow('stocks',{name:stockName.value,qty:Number(stockQty.value),unit:stockUnit.value});
- e.target.reset();
-};
-
-manpowerForm.onsubmit=e=>{
- e.preventDefault();
- addRow('manpower',{date:mpDate.value,trade:mpTrade.value,present:Number(mpPresent.value),remarks:mpRemarks.value});
- e.target.reset();
-};
-
-qualityForm.onsubmit=e=>{
- e.preventDefault();
- addRow('quality',{date:qDate.value,activity:qActivity.value,status:qStatus.value,remarks:qRemarks.value});
- e.target.reset();
-};
-
-adminForm.onsubmit=e=>{
- e.preventDefault();
- addRow('admin',{type:adminType.value,subject:adminSubject.value,details:adminDetails.value});
- e.target.reset();
-};
-
-function askAssistant(){
- const q=aiQuestion.value.trim();
- if(!q){aiAnswer.textContent='Please enter your question.';return}
- const match=q.match(/(\d+(?:\.\d+)?)\s*(?:x|×|\*)\s*(\d+(?:\.\d+)?)\s*(?:x|×|\*)\s*(\d+(?:\.\d+)?)/i);
- if(match){
-  aiAnswer.textContent='Basic volume calculation:\n'+match[1]+' × '+match[2]+' × '+match[3]+' = '+(Number(match[1])*Number(match[2])*Number(match[3])).toFixed(3)+' cubic metres (m³).\n\nPlease verify the dimensions and units.';
+function login(){
+ let u=document.getElementById('username').value.trim();
+ let p=document.getElementById('password').value;
+ if(users[u]===p){
+  currentUser=u;
+  document.getElementById('login').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  page('dashboard');
  }else{
-  aiAnswer.textContent='This starter assistant does not yet have a live AI connection. You can use the Concrete Calculator for dimensions or connect a secure AI service in a later step.';
+  document.getElementById('loginMsg').textContent='Wrong username or password';
  }
 }
-
-renderAll();
+function logout(){
+ currentUser='';
+ document.getElementById('app').classList.add('hidden');
+ document.getElementById('login').classList.remove('hidden');
+}
+function esc(v){
+ return String(v??'').replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+function saveRecord(k,r){
+ let d=getDB();
+ d[k]=d[k]||[];
+ r.id=Date.now().toString()+Math.random().toString(16).slice(2);
+ r.createdBy=currentUser;
+ d[k].push(r);
+ saveDB(d);
+}
+function del(k,id){
+ if(!confirm('Delete this record?'))return;
+ let d=getDB();
+ d[k]=(d[k]||[]).filter(r=>r.id!==id);
+ saveDB(d);
+ page(k);
+}
+function table(k,fields){
+ let data=records(k);
+ if(!data.length)return '<p>No records saved yet.</p>';
+ return '<div class="tablebox"><table><tr>'+
+ fields.map(f=>'<th>'+f[1]+'</th>').join('')+
+ '<th>Photos</th><th>Action</th></tr>'+
+ data.slice().reverse().map(r=>'<tr>'+
+ fields.map(f=>'<td>'+esc(r[f[0]]||'—')+'</td>').join('')+
+ '<td>'+(r.photos||[]).map(p=>
+ '<a href="'+p+'" target="_blank">View photo</a>'
+ ).join('<br>')+'</td>'+
+ '<td><button onclick="del(\\''+k+'\\',\\''+r.id+'\\')">Delete</button></td>'+
+ '</tr>').join('')+'</table></div>';
+}
+function form(k,title,fields){
+ return '<section class="card"><h2>'+title+'</h2>'+
+ '<form id="recordForm">'+fields+
+ '<label>Attach Photo / Bill Proof</label>'+
+ '<input type="file" id="photos" accept="image/*" multiple>'+
+ '<button class="btn" type="submit">💾 Save Record</button>'+
+ '</form></section>'+
+ '<section class="card"><h2>Saved Records</h2>'+
+ table(k,[['date','Date'],['project','Project / Site'],['item','Item / Activity'],['amount','Amount'],['status','Status']])+
+ '</section>';
+}
+function inp(label,name,type='text',required=true){
+ return '<label>'+label+'</label><input name="'+name+'" type="'+type+'" '+(required?'required':'')+'>';
+}
+function sel(label,name,opts){
+ return '<label>'+label+'</label><select name="'+name+'" required>'+
+ '<option value="">Select</option>'+
+ opts.map(o=>'<option>'+o+'</option>').join('')+'</select>';
+}
+function area(label,name){
+ return '<label>'+label+'</label><textarea name="'+name+'"></textarea>';
+}
+function bind(k){
+ const f=document.getElementById('recordForm');
+ if(!f)return;
+ f.onsubmit=async e=>{
+  e.preventDefault();
+  const b=f.querySelector('button[type=submit]');
+  b.disabled=true;
+  b.textContent='Saving...';
+  try{
+   let r=Object.fromEntries(new FormData(f).entries());
+   r.photos=[];
+   const files=[...document.getElementById('photos').files];
+   for(const file of files){
+    if(file.size>800000){
+     alert('Photo 800 KB se chhoti rakhein.');
+     b.disabled=false;b.textContent='💾 Save Record';return;
+    }
+    r.photos.push(await new Promise((resolve,reject)=>{
+     const rd=new FileReader();
+     rd.onload=()=>resolve(rd.result);
+     rd.onerror=reject;
+     rd.readAsDataURL(file);
+    }));
+   }
+   saveRecord(k,r);
+   alert('Record saved successfully!');
+   page(k);
+  }catch(err){
+   alert('Save nahi hua. Photo chhoti karke try karein.');
+   b.disabled=false;b.textContent='💾 Save Record';
+  }
+ };
+}
+function page(k){
+ const c=document.getElementById('content');
+ const date=new Date().toISOString().slice(0,10);
+ if(k==='dashboard'){
+  c.innerHTML='<h2>Dashboard</h2><div class="card"><h3>Welcome '+esc(currentUser)+'</h3>'+
+  '<p>Projects: '+records('projects').length+
+  ' | DPR: '+records('dpr').length+
+  ' | Bills: '+records('billing').length+
+  ' | Materials: '+records('inventory').length+'</p></div>'+
+  '<div class="card"><h3>Recent Billing</h3>'+
+  table('billing',[['date','Date'],['project','Project'],['item','BOQ Item'],['amount','Amount'],['status','Status']])+
+  '</div>';
+  return;
+ }
+ if(k==='concrete'){
+  c.innerHTML='<section class="card"><h2>Concrete Calculator</h2>'+
+  inp('Length (m)','length')+inp('Width (m)','width')+
+  inp('Depth (m)','depth')+
+  '<button class="btn" onclick="calcConcrete()">Calculate</button>'+
+  '<h3 id="result"></h3></section>';
+  return;
+ }
+ if(k==='bbs'){
+  c.innerHTML='<section class="card"><h2>BBS Steel Calculator</h2>'+
+  sel('Diameter (mm)','dia',['8','10','12','16','20','25','32'])+
+  inp('Length per bar (m)','length','number')+
+  inp('Number of bars','qty','number')+
+  '<button class="btn" onclick="calcSteel()">Calculate</button>'+
+  '<h3 id="result"></h3></section>';
+  return;
+ }
+ if(k==='reports'){
+  c.innerHTML='<section class="card"><h2>Reports & Backup</h2>'+
+  '<button class="btn" onclick="backup()">Download JSON Backup</button> '+
+  '<button class="btn" onclick="csv()">Export All Records CSV</button>'+
+  '<p>Backup ko safe jagah par rakhein.</p></section>';
+  return;
+ }
+ if(k==='admin'){
+  c.innerHTML='<section class="card"><h2>Core Departments</h2>'+
+  '<p>Project / Execution: RCC, Masonry, Finishing, Survey</p>'+
+  '<p>QA/QC: Steel, Shuttering, Cube Test, Material Test</p>'+
+  '<p>Safety / HSE: PPE, Toolbox Talk, Incident, Corrective Action</p>'+
+  '<p>Store / Purchase: Inward, Outward, Vendor, Purchase Order</p>'+
+  '<p>Accounts: BOQ, RA Bill, Final Bill, GST, Expenses</p>'+
+  '<p>HR: Employees, Attendance, Overtime, Payroll</p>'+
+  '<p>Planning: Schedule, Targets, Progress, Delays</p>'+
+  '<p>Documents: Structural Drawings, RFI, MIR, WIR</p>'+
+  '<p><b>Demo only:</b> Login browser mein hota hai; shared database abhi connect nahi hai.</p></section>';
+  return;
+ }
+ let title='',fields='';
+ switch(k){
+ case 'projects':
+ title='Projects & Sites';
+ fields=inp('Date','date','date')+inp('Project / Site Name','project')+
+ inp('Client / PMC','item')+inp('Location','location')+sel('Status','status',['Planning','In Progress','On Hold','Completed']);
+ break;
+ case 'billing':
+ title='Billing & BOQ';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('BOQ Item / Description','item')+inp('Bill / Voucher No.','billNo')+
+ inp('Quantity','quantity','number')+
+ sel('Unit','unit',['Nos','Kg','MT','Ton','RMT','RFT','Sq.ft','Sq.m','Cum'])+
+ inp('Rate ₹','rate','number')+
+ sel('Bill Type','billType',['RA Bill','Final Bill','Subcontractor Bill','Material Bill','Petty Cash Voucher'])+
+ sel('Status','status',['Draft','Submitted','Approved','Paid','Rejected'])+
+ inp('GST %','gst','number',false)+area('Remarks','remarks');
+ break;
+ case 'dpr':
+ title='Daily Progress Report';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Work Activity','item')+inp('Quantity Completed','quantity','number',false)+
+ inp('Manpower','manpower','number',false)+area('Work Details','remarks');
+ break;
+ case 'dlr':
+ title='Daily Labour Report';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Contractor','item')+inp('Mason','mason','number',false)+
+ inp('Helper','helper','number',false)+inp('Carpenter','carpenter','number',false)+area('Remarks','remarks');
+ break;
+ case 'inventory':
+ title='Inventory / Store';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Material Name','item')+sel('Transaction','status',['Inward','Outward','Return'])+
+ inp('Quantity','quantity','number')+inp('Unit','unit')+inp('Supplier / Issued To','party');
+ break;
+ case 'purchase':
+ title='Purchase Request';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Material / Item','item')+inp('Quantity','quantity','number')+
+ inp('Vendor','vendor')+sel('Status','status',['Requested','Approved','Ordered','Received']);
+ break;
+ case 'accounts':
+ title='Accounts & Expenses';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ sel('Type','status',['Expense','Payment','Receipt','Advance'])+
+ inp('Category','item')+inp('Amount ₹','amount','number')+
+ inp('Party','party')+area('Remarks','remarks');
+ break;
+ case 'quality':
+ title='Quality Control';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ sel('Inspection','item',['Steel Inspection','Shuttering','Concrete Pour','Cube Test','Material Test'])+
+ sel('Result','status',['Accepted','Rejected','Observation'])+area('Remarks','remarks');
+ break;
+ case 'safety':
+ title='Safety / HSE';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ sel('Report Type','item',['PPE Check','Toolbox Talk','Near Miss','Incident'])+
+ sel('Status','status',['Open','Action Assigned','Closed'])+area('Observation','remarks');
+ break;
+ case 'planning':
+ title='Planning & Schedule';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Activity','item')+inp('Target Date','targetDate','date')+
+ inp('Progress %','quantity','number')+
+ sel('Status','status',['Not Started','In Progress','Delayed','Completed']);
+ break;
+ case 'hr':
+ title='HR / Manpower';
+ fields=inp('Employee Name','project')+inp('Employee ID','item')+
+ inp('Designation','designation')+inp('Department','department')+
+ inp('Contractor','contractor')+sel('Status','status',['Active','Inactive','On Leave']);
+ break;
+ case 'documents':
+ title='Documents & Drawings';
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Drawing / Document Title','item')+inp('Drawing No. / Revision','drawingNo')+
+ sel('Document Type','status',['Structural Drawing','Architectural Drawing','RFI','MIR','WIR','Test Report']);
+ break;
+ default:
+ title=k.toUpperCase();
+ fields=inp('Date','date','date')+inp('Project / Site','project')+
+ inp('Activity / Item','item')+inp('Amount / Quantity','amount','number',false)+
+ sel('Status','status',['Open','In Progress','Completed'])+area('Remarks','remarks');
+ }
+ c.innerHTML='<h2>'+title+'</h2><section class="card"><form id="recordForm">'+
+ fields+'<label>Attach Photo / Bill Proof</label>'+
+ '<input type="file" id="photos" accept="image/*" multiple>'+
+ '<button class="btn" type="submit">💾 Save Record</button></form></section>'+
+ '<section class="card"><h3>Saved Records</h3>'+
+ table(k,[['date','Date'],['project','Project / Site'],['item','Item / Activity'],['amount','Amount'],['status','Status']])+
+ '</section>';
+ bind(k);
+}
+function calcConcrete(){
+ let l=+document.querySelector('[name=length]').value;
+ let w=+document.querySelector('[name=width]').value;
+ let d=+document.querySelector('[name=depth]').value;
+ if(l<=0||w<=0||d<=0){alert('Valid dimensions enter karein');return}
+ document.getElementById('result').textContent='Concrete = '+(l*w*d).toFixed(3)+' m³';
+}
+function calcSteel(){
+ let d=+document.querySelector('[name=dia]').value;
+ let l=+document.querySelector('[name=length]').value;
+ let n=+document.querySelector('[name=qty]').value;
+ if(l<=0||n<=0){alert('Valid length aur quantity enter karein');return}
+ document.getElementById('result').textContent='Steel weight = '+(d*d/162*l*n).toFixed(2)+' kg';
+}
+function download(name,text,type){
+ let a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([text],{type:type}));
+ a.download=name;a.click();
+}
+function backup(){
+ download('kanhai-erp-backup.json',JSON.stringify(getDB(),null,2),'application/json');
+}
+function csv(){
+ let d=getDB(),lines=['Department,Date,Project,Item,Amount,Status'];
+ Object.keys(d).forEach(k=>(d[k]||[]).forEach(r=>{
+  lines.push([k,r.date,r.project,r.item,r.amount,r.status]
+  .map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','));
+ }));
+ download('kanhai-erp-report.csv',lines.join('\r\n'),'text/csv');
+}
 </script>
-
 </body>
 </html>
