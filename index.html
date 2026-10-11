@@ -3,384 +3,838 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kanhai Infracon ERP</title>
+<title>KANHAI INFRACON ERP</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f1f5f9;color:#17243a}
-header{background:#142b49;color:white;padding:15px;font-weight:bold}
-.layout{display:flex;min-height:90vh}
-aside{width:230px;background:#10213b;padding:12px;flex-shrink:0}
-aside button{display:block;width:100%;padding:12px;margin:4px 0;border:0;border-radius:5px;text-align:left;background:#203957;color:white}
-aside button:hover{background:#009c91}
-main{flex:1;padding:18px;min-width:0}
-.card{background:white;padding:16px;border-radius:10px;margin-bottom:15px;box-shadow:0 2px 8px #0001}
-input,select,textarea{width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ccd5e1;border-radius:5px}
-label{font-size:13px;font-weight:bold}
-.btn{padding:11px 16px;border:0;border-radius:5px;background:#009c91;color:white;font-weight:bold}
-table{width:100%;border-collapse:collapse;font-size:12px}
-td,th{padding:9px;border-bottom:1px solid #ddd;text-align:left}
-.tablebox{overflow-x:auto}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f1f5f9;
+ color:#17243a;
+}
+
 .hidden{display:none!important}
-img.proof{width:55px;height:55px;object-fit:cover}
-#login{max-width:400px;margin:60px auto;padding:25px}
-@media(max-width:700px){
+
+.layout{
+ display:flex;
+ min-height:100vh;
+}
+
+/* LEFT SIDEBAR */
+aside{
+ width:250px;
+ flex-shrink:0;
+ background:#10213b;
+ color:white;
+ padding:12px;
+ overflow-y:auto;
+ height:100vh;
+ position:sticky;
+ top:0;
+}
+
+.brand{
+ background:#142b49;
+ border-bottom:3px solid #009c91;
+ padding:17px 10px;
+ margin-bottom:12px;
+ font-size:18px;
+ font-weight:bold;
+ line-height:1.5;
+}
+
+.brand small{
+ display:block;
+ font-size:11px;
+ color:#cbd5e1;
+ font-weight:normal;
+}
+
+aside button{
+ display:block;
+ width:100%;
+ padding:12px;
+ margin:4px 0;
+ border:0;
+ border-radius:5px;
+ text-align:left;
+ background:#203957;
+ color:white;
+ cursor:pointer;
+ font-size:14px;
+}
+
+aside button:hover,
+aside button.active{
+ background:#009c91;
+}
+
+/* MAIN CONTENT */
+main{
+ flex:1;
+ min-width:0;
+ padding:20px;
+}
+
+.topinfo{
+ background:#fff;
+ padding:14px 18px;
+ border-radius:8px;
+ margin-bottom:18px;
+ box-shadow:0 2px 8px #0001;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ flex-wrap:wrap;
+}
+
+.card{
+ background:white;
+ padding:17px;
+ border-radius:10px;
+ margin-bottom:16px;
+ box-shadow:0 2px 8px #0001;
+}
+
+input,select,textarea{
+ width:100%;
+ padding:10px;
+ margin:5px 0 12px;
+ border:1px solid #ccd5e1;
+ border-radius:5px;
+ font-size:14px;
+}
+
+label{
+ font-size:13px;
+ font-weight:bold;
+ display:block;
+}
+
+.btn{
+ padding:11px 16px;
+ border:0;
+ border-radius:5px;
+ background:#009c91;
+ color:white;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+.btn:hover{background:#007f77}
+
+.danger{background:#c62828}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+ font-size:12px;
+}
+
+td,th{
+ padding:9px;
+ border-bottom:1px solid #ddd;
+ text-align:left;
+}
+
+th{background:#eaf0f6}
+
+.tablebox{overflow-x:auto}
+
+.statgrid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+ gap:12px;
+}
+
+.stat{
+ background:#fff;
+ padding:18px;
+ border-radius:9px;
+ border-left:4px solid #009c91;
+ box-shadow:0 2px 8px #0001;
+}
+
+.stat strong{
+ display:block;
+ font-size:26px;
+ margin-top:8px;
+}
+
+#login{
+ max-width:400px;
+ margin:55px auto;
+ padding:25px;
+}
+
+#login h2{color:#142b49}
+
+#loginMsg{color:#c62828}
+
+small.note{
+ color:#64748b;
+ font-size:12px;
+}
+
+@media(max-width:750px){
  .layout{display:block}
- aside{width:100%;display:flex;overflow-x:auto;gap:5px}
- aside button{min-width:130px;width:auto}
+
+ aside{
+  width:100%;
+  height:auto;
+  position:relative;
+  display:flex;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  align-items:center;
+ }
+
+ .brand{
+  min-width:180px;
+  margin:0 8px 0 0;
+  border-bottom:0;
+  border-right:3px solid #009c91;
+  font-size:15px;
+ }
+
+ aside button{
+  min-width:135px;
+  width:auto;
+  flex-shrink:0;
+ }
+
  main{padding:10px}
+ .topinfo{padding:12px}
 }
 </style>
 </head>
 
 <body>
 
-<script>
-function login() {
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
-    const loginMsg = document.getElementById("loginMsg");
+<!-- LOGIN SCREEN -->
+<div id="login" class="card">
+ <h2>🏗️ KANHAI INFRACON</h2>
+ <p>Construction ERP Login</p>
 
-    if (username === "admin" && password === "admin123") {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("app").classList.remove("hidden");
-        loginMsg.textContent = "";
-    } else if (username === "site" && password === "site123") {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("app").classList.remove("hidden");
-        loginMsg.textContent = "";
-    } else {
-        loginMsg.textContent = "Invalid username or password!";
-        loginMsg.style.color = "red";
-    }
-}
-</script>
+ <label>Username</label>
+ <input id="username" value="admin" autocomplete="username">
 
+ <label>Password</label>
+ <input id="password" type="password"
+        placeholder="Enter password"
+        autocomplete="current-password">
+
+ <button class="btn" onclick="login()">Login</button>
+
+ <p id="loginMsg"></p>
+
+ <small class="note">
+ Demo Admin: admin / admin123<br>
+ Demo Site User: site / site123
+ </small>
+</div>
+
+
+<!-- MAIN ERP APPLICATION -->
 <div id="app" class="hidden">
-<header>🏗️ KANHAI INFRACON | SITE ERP</header>
 
 <div class="layout">
+
+<!-- LEFT MENU: COMPANY NAME IS HERE -->
 <aside>
-<button onclick="page('dashboard')">📊 Dashboard</button>
-<button onclick="page('projects')">🏗️ Projects & Sites</button>
-<button onclick="page('dpr')">📋 DPR Report</button>
-<button onclick="page('dlr')">👷 DLR / Labour</button>
-<button onclick="page('billing')">🧾 Billing & BOQ</button>
-<button onclick="page('concrete')">🧱 Concrete Calculator</button>
-<button onclick="page('bbs')">🔩 BBS / Steel</button>
-<button onclick="page('inventory')">📦 Inventory / Store</button>
-<button onclick="page('purchase')">🛒 Purchase</button>
-<button onclick="page('accounts')">💰 Accounts</button>
-<button onclick="page('quality')">✅ QA/QC Department</button>
-<button onclick="page('safety')">🦺 Safety / HSE</button>
-<button onclick="page('planning')">📅 Planning</button>
-<button onclick="page('hr')">👷 HR / Manpower</button>
-<button onclick="page('documents')">📁 Documents</button>
-<button onclick="page('reports')">📈 Reports / Backup</button>
-<button onclick="page('admin')">⚙️ Admin / Core Departments</button>
-<button onclick="logout()">Logout</button>
+
+ <div class="brand">
+  🏗️ KANHAI INFRACON
+  <small>CONSTRUCTION ERP SYSTEM</small>
+ </div>
+
+ <button onclick="page('dashboard')">📊 Dashboard</button>
+ <button onclick="page('projects')">🏗️ Projects & Sites</button>
+ <button onclick="page('dpr')">📋 DPR Report</button>
+ <button onclick="page('dlr')">👷 DLR / Labour</button>
+ <button onclick="page('billing')">🧾 Billing & BOQ</button>
+ <button onclick="page('concrete')">🧱 Concrete Calculator</button>
+ <button onclick="page('bbs')">🔩 BBS / Steel</button>
+ <button onclick="page('inventory')">📦 Inventory / Store</button>
+ <button onclick="page('purchase')">🛒 Purchase</button>
+ <button onclick="page('accounts')">💰 Accounts</button>
+ <button onclick="page('quality')">✅ QA/QC Department</button>
+ <button onclick="page('safety')">🦺 Safety / HSE</button>
+ <button onclick="page('planning')">📅 Planning</button>
+ <button onclick="page('hr')">👥 HR / Manpower</button>
+ <button onclick="page('documents')">📁 Documents</button>
+ <button onclick="page('reports')">📈 Reports / Backup</button>
+ <button onclick="page('admin')">⚙️ Admin / Departments</button>
+ <button onclick="logout()">↩ Logout</button>
+
 </aside>
 
-<main id="content"></main>
+
+<!-- RIGHT SIDE CONTENT -->
+<main>
+
+ <div class="topinfo">
+  <div>
+   <strong>KANHAI INFRACON</strong><br>
+   <small class="note">Project & Site Management System</small>
+  </div>
+
+  <div>
+   User: <strong id="currentUserLabel">admin</strong>
+  </div>
+ </div>
+
+ <div id="content"></div>
+
+</main>
 </div>
 </div>
+
 
 <script>
-const users={admin:'admin123',site:'site123'};
-let currentUser='';
-const DB='kanhai_erp_records_v1';
+/* LOGIN */
+const users={
+ admin:'admin123',
+ site:'site123'
+};
 
-function getDB(){
- try{return JSON.parse(localStorage.getItem(DB))||{}}
- catch(e){return {}}
-}
-function saveDB(d){
- localStorage.setItem(DB,JSON.stringify(d));
-}
-function records(k){return getDB()[k]||[]}
+let currentUser='';
+
+const DB='kanhai_erp_records_v2';
 
 function login(){
- let u=document.getElementById('username').value.trim();
- let p=document.getElementById('password').value;
+ const u=document.getElementById('username').value.trim();
+ const p=document.getElementById('password').value;
+ const msg=document.getElementById('loginMsg');
+
  if(users[u]===p){
   currentUser=u;
+  msg.textContent='';
+
   document.getElementById('login').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
+  document.getElementById('currentUserLabel').textContent=u;
+
   page('dashboard');
  }else{
-  document.getElementById('loginMsg').textContent='Wrong username or password';
+  msg.textContent='Wrong username or password.';
  }
 }
+
+document.getElementById('password').addEventListener('keydown',function(e){
+ if(e.key==='Enter')login();
+});
+
 function logout(){
  currentUser='';
  document.getElementById('app').classList.add('hidden');
  document.getElementById('login').classList.remove('hidden');
+ document.getElementById('password').value='';
 }
-function esc(v){
- return String(v??'').replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- }[c]));
+
+
+/* LOCAL DATABASE */
+function getDB(){
+ try{
+  return JSON.parse(localStorage.getItem(DB))||{};
+ }catch(e){
+  return {};
+ }
 }
+
+function saveDB(data){
+ localStorage.setItem(DB,JSON.stringify(data));
+}
+
+function records(k){
+ return getDB()[k]||[];
+}
+
 function saveRecord(k,r){
- let d=getDB();
- d[k]=d[k]||[];
- r.id=Date.now().toString()+Math.random().toString(16).slice(2);
+ const d=getDB();
+
+ if(!d[k])d[k]=[];
+
+ r.id=Date.now().toString()+
+      Math.random().toString(16).slice(2);
+
  r.createdBy=currentUser;
+ r.savedAt=new Date().toISOString();
+
  d[k].push(r);
  saveDB(d);
 }
-function del(k,id){
+
+
+/* HTML ESCAPING */
+function esc(v){
+ return String(v??'').replace(/[&<>"']/g,function(c){
+  return {
+   '&':'&amp;',
+   '<':'&lt;',
+   '>':'&gt;',
+   '"':'&quot;',
+   "'":'&#39;'
+  }[c];
+ });
+}
+
+
+/* TABLE */
+function table(k,fields){
+ const data=records(k);
+
+ if(!data.length){
+  return '<p>No records saved yet.</p>';
+ }
+
+ return '<div class="tablebox"><table><thead><tr>'+
+ fields.map(f=>'<th>'+esc(f[1])+'</th>').join('')+
+ '<th>Action</th></tr></thead><tbody>'+
+
+ data.slice().reverse().map(r=>
+  '<tr>'+
+  fields.map(f=>'<td>'+esc(r[f[0]]||'—')+'</td>').join('')+
+  '<td><button class="btn danger" onclick="delRecord(\''+
+  esc(k)+'\',\''+esc(r.id)+'\')">Delete</button></td>'+
+  '</tr>'
+ ).join('')+
+
+ '</tbody></table></div>';
+}
+
+function delRecord(k,id){
  if(!confirm('Delete this record?'))return;
- let d=getDB();
+
+ const d=getDB();
+
  d[k]=(d[k]||[]).filter(r=>r.id!==id);
+
  saveDB(d);
  page(k);
 }
-function table(k,fields){
- let data=records(k);
- if(!data.length)return '<p>No records saved yet.</p>';
- return '<div class="tablebox"><table><tr>'+
- fields.map(f=>'<th>'+f[1]+'</th>').join('')+
- '<th>Photos</th><th>Action</th></tr>'+
- data.slice().reverse().map(r=>'<tr>'+
- fields.map(f=>'<td>'+esc(r[f[0]]||'—')+'</td>').join('')+
- '<td>'+(r.photos||[]).map(p=>
- '<a href="'+p+'" target="_blank">View photo</a>'
- ).join('<br>')+'</td>'+
- '<td><button onclick="del(\\''+k+'\\',\\''+r.id+'\\')">Delete</button></td>'+
- '</tr>').join('')+'</table></div>';
-}
-function form(k,title,fields){
- return '<section class="card"><h2>'+title+'</h2>'+
- '<form id="recordForm">'+fields+
- '<label>Attach Photo / Bill Proof</label>'+
- '<input type="file" id="photos" accept="image/*" multiple>'+
- '<button class="btn" type="submit">💾 Save Record</button>'+
- '</form></section>'+
- '<section class="card"><h2>Saved Records</h2>'+
- table(k,[['date','Date'],['project','Project / Site'],['item','Item / Activity'],['amount','Amount'],['status','Status']])+
- '</section>';
-}
+
+
+/* FORM HELPERS */
 function inp(label,name,type='text',required=true){
- return '<label>'+label+'</label><input name="'+name+'" type="'+type+'" '+(required?'required':'')+'>';
+ return '<label>'+esc(label)+'</label>'+
+ '<input name="'+esc(name)+'" type="'+esc(type)+'" '+
+ (required?'required':'')+'>';
 }
-function sel(label,name,opts){
- return '<label>'+label+'</label><select name="'+name+'" required>'+
+
+function sel(label,name,options){
+ return '<label>'+esc(label)+'</label>'+
+ '<select name="'+esc(name)+'" required>'+
  '<option value="">Select</option>'+
- opts.map(o=>'<option>'+o+'</option>').join('')+'</select>';
+ options.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join('')+
+ '</select>';
 }
+
 function area(label,name){
- return '<label>'+label+'</label><textarea name="'+name+'"></textarea>';
+ return '<label>'+esc(label)+'</label>'+
+ '<textarea name="'+esc(name)+'" rows="3"></textarea>';
 }
-function bind(k){
+
+
+/* CREATE DEPARTMENT FORM */
+function showForm(k,title,fields){
+ const c=document.getElementById('content');
+
+ c.innerHTML=
+ '<h2>'+esc(title)+'</h2>'+
+
+ '<section class="card">'+
+ '<form id="recordForm">'+
+ fields+
+
+ '<button class="btn" type="submit">💾 Save Record</button>'+
+ '</form>'+
+ '</section>'+
+
+ '<section class="card">'+
+ '<h3>Saved Records</h3>'+
+ table(k,[
+  ['date','Date'],
+  ['project','Project / Site'],
+  ['item','Item / Activity'],
+  ['amount','Amount'],
+  ['status','Status']
+ ])+
+ '</section>';
+
  const f=document.getElementById('recordForm');
- if(!f)return;
- f.onsubmit=async e=>{
+
+ f.onsubmit=function(e){
   e.preventDefault();
-  const b=f.querySelector('button[type=submit]');
-  b.disabled=true;
-  b.textContent='Saving...';
+
+  const r=Object.fromEntries(new FormData(f).entries());
+
   try{
-   let r=Object.fromEntries(new FormData(f).entries());
-   r.photos=[];
-   const files=[...document.getElementById('photos').files];
-   for(const file of files){
-    if(file.size>800000){
-     alert('Photo 800 KB se chhoti rakhein.');
-     b.disabled=false;b.textContent='💾 Save Record';return;
-    }
-    r.photos.push(await new Promise((resolve,reject)=>{
-     const rd=new FileReader();
-     rd.onload=()=>resolve(rd.result);
-     rd.onerror=reject;
-     rd.readAsDataURL(file);
-    }));
-   }
    saveRecord(k,r);
    alert('Record saved successfully!');
    page(k);
   }catch(err){
-   alert('Save nahi hua. Photo chhoti karke try karein.');
-   b.disabled=false;b.textContent='💾 Save Record';
+   alert('Storage full or unable to save. Export your backup and try again.');
   }
  };
 }
+
+
+/* DASHBOARD AND ALL DEPARTMENTS */
 function page(k){
  const c=document.getElementById('content');
- const date=new Date().toISOString().slice(0,10);
+
  if(k==='dashboard'){
-  c.innerHTML='<h2>Dashboard</h2><div class="card"><h3>Welcome '+esc(currentUser)+'</h3>'+
-  '<p>Projects: '+records('projects').length+
-  ' | DPR: '+records('dpr').length+
-  ' | Bills: '+records('billing').length+
-  ' | Materials: '+records('inventory').length+'</p></div>'+
-  '<div class="card"><h3>Recent Billing</h3>'+
-  table('billing',[['date','Date'],['project','Project'],['item','BOQ Item'],['amount','Amount'],['status','Status']])+
-  '</div>';
+  c.innerHTML=
+  '<h2>📊 Dashboard</h2>'+
+  '<div class="statgrid">'+
+  statCard('Projects',records('projects').length)+
+  statCard('DPR Reports',records('dpr').length)+
+  statCard('Bills',records('billing').length)+
+  statCard('Store Records',records('inventory').length)+
+  statCard('Labour Reports',records('dlr').length)+
+  '</div>'+
+  '<section class="card">'+
+  '<h3>Recent Billing Records</h3>'+
+  table('billing',[
+   ['date','Date'],
+   ['project','Project'],
+   ['item','BOQ Item'],
+   ['amount','Amount'],
+   ['status','Status']
+  ])+
+  '</section>'+
+  '<section class="card">'+
+  '<p><b>Note:</b> This is a demo ERP. Records are saved in this browser only.</p>'+
+  '</section>';
+
   return;
  }
+
  if(k==='concrete'){
-  c.innerHTML='<section class="card"><h2>Concrete Calculator</h2>'+
-  inp('Length (m)','length')+inp('Width (m)','width')+
-  inp('Depth (m)','depth')+
-  '<button class="btn" onclick="calcConcrete()">Calculate</button>'+
-  '<h3 id="result"></h3></section>';
+  c.innerHTML=
+  '<h2>🧱 Concrete Calculator</h2>'+
+  '<section class="card">'+
+  inp('Length (meters)','length','number')+
+  inp('Width (meters)','width','number')+
+  inp('Depth / Thickness (meters)','depth','number')+
+  '<button class="btn" onclick="calcConcrete()">Calculate Volume</button>'+
+  '<h3 id="result"></h3>'+
+  '</section>';
+
   return;
  }
+
  if(k==='bbs'){
-  c.innerHTML='<section class="card"><h2>BBS Steel Calculator</h2>'+
-  sel('Diameter (mm)','dia',['8','10','12','16','20','25','32'])+
-  inp('Length per bar (m)','length','number')+
-  inp('Number of bars','qty','number')+
-  '<button class="btn" onclick="calcSteel()">Calculate</button>'+
-  '<h3 id="result"></h3></section>';
+  c.innerHTML=
+  '<h2>🔩 BBS Steel Calculator</h2>'+
+  '<section class="card">'+
+  sel('Bar Diameter (mm)','dia',['8','10','12','16','20','25','32'])+
+  inp('Length per Bar (meters)','length','number')+
+  inp('Number of Bars','qty','number')+
+  '<button class="btn" onclick="calcSteel()">Calculate Weight</button>'+
+  '<h3 id="result"></h3>'+
+  '<small class="note">Basic weight formula: Diameter² / 162 × Length × Quantity.</small>'+
+  '</section>';
+
   return;
  }
+
  if(k==='reports'){
-  c.innerHTML='<section class="card"><h2>Reports & Backup</h2>'+
+  c.innerHTML=
+  '<h2>📈 Reports & Backup</h2>'+
+  '<section class="card">'+
+  '<h3>Data Backup</h3>'+
+  '<p>Download your saved records for safekeeping.</p>'+
   '<button class="btn" onclick="backup()">Download JSON Backup</button> '+
-  '<button class="btn" onclick="csv()">Export All Records CSV</button>'+
-  '<p>Backup ko safe jagah par rakhein.</p></section>';
+  '<button class="btn" onclick="csvExport()">Export CSV</button>'+
+  '</section>';
+
   return;
  }
+
  if(k==='admin'){
-  c.innerHTML='<section class="card"><h2>Core Departments</h2>'+
-  '<p>Project / Execution: RCC, Masonry, Finishing, Survey</p>'+
-  '<p>QA/QC: Steel, Shuttering, Cube Test, Material Test</p>'+
-  '<p>Safety / HSE: PPE, Toolbox Talk, Incident, Corrective Action</p>'+
-  '<p>Store / Purchase: Inward, Outward, Vendor, Purchase Order</p>'+
-  '<p>Accounts: BOQ, RA Bill, Final Bill, GST, Expenses</p>'+
-  '<p>HR: Employees, Attendance, Overtime, Payroll</p>'+
-  '<p>Planning: Schedule, Targets, Progress, Delays</p>'+
-  '<p>Documents: Structural Drawings, RFI, MIR, WIR</p>'+
-  '<p><b>Demo only:</b> Login browser mein hota hai; shared database abhi connect nahi hai.</p></section>';
+  c.innerHTML=
+  '<h2>⚙️ Admin / Core Departments</h2>'+
+  '<section class="card">'+
+  '<h3>Project & Execution</h3>'+
+  '<p>RCC, Masonry, Finishing, Survey and Site Coordination</p>'+
+  '<h3>QA/QC Department</h3>'+
+  '<p>Steel Inspection, Shuttering, Cube Test and Material Testing</p>'+
+  '<h3>Safety / HSE</h3>'+
+  '<p>PPE, Toolbox Talk, Incident and Corrective Action</p>'+
+  '<h3>Store & Purchase</h3>'+
+  '<p>Material Inward, Outward, Vendor and Purchase Request</p>'+
+  '<h3>Accounts</h3>'+
+  '<p>BOQ, RA Bill, Final Bill, GST and Expenses</p>'+
+  '<h3>HR</h3>'+
+  '<p>Employees, Attendance, Overtime and Manpower</p>'+
+  '<h3>Planning</h3>'+
+  '<p>Schedule, Targets, Progress and Delays</p>'+
+  '<h3>Documents</h3>'+
+  '<p>Structural Drawings, RFI, MIR and WIR</p>'+
+  '<hr>'+
+  '<p><b>Important:</b> This is a browser-based demo. It does not have a shared company database or secure server login.</p>'+
+  '</section>';
+
   return;
  }
- let title='',fields='';
+
+
+ /* DEPARTMENT FORMS */
+ let title='';
+ let fields='';
+
  switch(k){
+
  case 'projects':
- title='Projects & Sites';
- fields=inp('Date','date','date')+inp('Project / Site Name','project')+
- inp('Client / PMC','item')+inp('Location','location')+sel('Status','status',['Planning','In Progress','On Hold','Completed']);
- break;
- case 'billing':
- title='Billing & BOQ';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('BOQ Item / Description','item')+inp('Bill / Voucher No.','billNo')+
- inp('Quantity','quantity','number')+
- sel('Unit','unit',['Nos','Kg','MT','Ton','RMT','RFT','Sq.ft','Sq.m','Cum'])+
- inp('Rate ₹','rate','number')+
- sel('Bill Type','billType',['RA Bill','Final Bill','Subcontractor Bill','Material Bill','Petty Cash Voucher'])+
- sel('Status','status',['Draft','Submitted','Approved','Paid','Rejected'])+
- inp('GST %','gst','number',false)+area('Remarks','remarks');
- break;
+  title='🏗️ Projects & Sites';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site Name','project')+
+   inp('Client / PMC','item')+
+   inp('Location','location')+
+   sel('Status','status',['Planning','In Progress','On Hold','Completed']);
+  break;
+
  case 'dpr':
- title='Daily Progress Report';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Work Activity','item')+inp('Quantity Completed','quantity','number',false)+
- inp('Manpower','manpower','number',false)+area('Work Details','remarks');
- break;
+  title='📋 Daily Progress Report';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Work Activity','item')+
+   inp('Quantity Completed','quantity','number',false)+
+   inp('Manpower','manpower','number',false)+
+   area('Work Details','remarks');
+  break;
+
  case 'dlr':
- title='Daily Labour Report';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Contractor','item')+inp('Mason','mason','number',false)+
- inp('Helper','helper','number',false)+inp('Carpenter','carpenter','number',false)+area('Remarks','remarks');
- break;
+  title='👷 Daily Labour Report';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Contractor','item')+
+   inp('Mason','mason','number',false)+
+   inp('Helper','helper','number',false)+
+   inp('Carpenter','carpenter','number',false)+
+   inp('Bar Bender','barBender','number',false)+
+   area('Remarks','remarks');
+  break;
+
+ case 'billing':
+  title='🧾 Billing & BOQ';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('BOQ Item / Description','item')+
+   inp('Bill / Voucher Number','billNo')+
+   inp('Quantity','quantity','number')+
+   sel('Unit','unit',['Nos','Kg','MT','Ton','RMT','RFT','Sq.ft','Sq.m','Cum'])+
+   inp('Rate ₹','rate','number')+
+   inp('Amount ₹','amount','number')+
+   sel('Bill Type','billType',['RA Bill','Final Bill','Subcontractor Bill','Material Bill','Petty Cash Voucher'])+
+   sel('Status','status',['Draft','Submitted','Approved','Paid','Rejected'])+
+   inp('GST %','gst','number',false)+
+   area('Remarks','remarks');
+  break;
+
  case 'inventory':
- title='Inventory / Store';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Material Name','item')+sel('Transaction','status',['Inward','Outward','Return'])+
- inp('Quantity','quantity','number')+inp('Unit','unit')+inp('Supplier / Issued To','party');
- break;
+  title='📦 Inventory / Store';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Material Name','item')+
+   sel('Transaction Type','status',['Inward','Outward','Return'])+
+   inp('Quantity','quantity','number')+
+   inp('Unit','unit')+
+   inp('Supplier / Issued To','party');
+  break;
+
  case 'purchase':
- title='Purchase Request';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Material / Item','item')+inp('Quantity','quantity','number')+
- inp('Vendor','vendor')+sel('Status','status',['Requested','Approved','Ordered','Received']);
- break;
+  title='🛒 Purchase Request';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Material / Item','item')+
+   inp('Quantity','quantity','number')+
+   inp('Unit','unit')+
+   inp('Vendor','vendor')+
+   sel('Status','status',['Requested','Approved','Ordered','Received']);
+  break;
+
  case 'accounts':
- title='Accounts & Expenses';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- sel('Type','status',['Expense','Payment','Receipt','Advance'])+
- inp('Category','item')+inp('Amount ₹','amount','number')+
- inp('Party','party')+area('Remarks','remarks');
- break;
+  title='💰 Accounts & Expenses';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   sel('Transaction Type','status',['Expense','Payment','Receipt','Advance'])+
+   inp('Category','item')+
+   inp('Amount ₹','amount','number')+
+   inp('Party','party')+
+   area('Remarks','remarks');
+  break;
+
  case 'quality':
- title='Quality Control';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- sel('Inspection','item',['Steel Inspection','Shuttering','Concrete Pour','Cube Test','Material Test'])+
- sel('Result','status',['Accepted','Rejected','Observation'])+area('Remarks','remarks');
- break;
+  title='✅ Quality Control / QA-QC';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   sel('Inspection Type','item',['Steel Inspection','Shuttering','Concrete Pour','Cube Test','Material Test'])+
+   sel('Result','status',['Accepted','Rejected','Observation'])+
+   area('Remarks','remarks');
+  break;
+
  case 'safety':
- title='Safety / HSE';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- sel('Report Type','item',['PPE Check','Toolbox Talk','Near Miss','Incident'])+
- sel('Status','status',['Open','Action Assigned','Closed'])+area('Observation','remarks');
- break;
+  title='🦺 Safety / HSE';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   sel('Report Type','item',['PPE Check','Toolbox Talk','Near Miss','Incident'])+
+   sel('Status','status',['Open','Action Assigned','Closed'])+
+   area('Observation','remarks');
+  break;
+
  case 'planning':
- title='Planning & Schedule';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Activity','item')+inp('Target Date','targetDate','date')+
- inp('Progress %','quantity','number')+
- sel('Status','status',['Not Started','In Progress','Delayed','Completed']);
- break;
+  title='📅 Planning & Schedule';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Activity','item')+
+   inp('Target Date','targetDate','date')+
+   inp('Progress %','quantity','number')+
+   sel('Status','status',['Not Started','In Progress','Delayed','Completed']);
+  break;
+
  case 'hr':
- title='HR / Manpower';
- fields=inp('Employee Name','project')+inp('Employee ID','item')+
- inp('Designation','designation')+inp('Department','department')+
- inp('Contractor','contractor')+sel('Status','status',['Active','Inactive','On Leave']);
- break;
+  title='👥 HR / Manpower';
+  fields=
+   inp('Employee Name','project')+
+   inp('Employee ID','item')+
+   inp('Designation','designation')+
+   inp('Department','department')+
+   inp('Contractor','contractor')+
+   sel('Status','status',['Active','Inactive','On Leave']);
+  break;
+
  case 'documents':
- title='Documents & Drawings';
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Drawing / Document Title','item')+inp('Drawing No. / Revision','drawingNo')+
- sel('Document Type','status',['Structural Drawing','Architectural Drawing','RFI','MIR','WIR','Test Report']);
- break;
+  title='📁 Documents & Drawings';
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Drawing / Document Title','item')+
+   inp('Drawing Number / Revision','drawingNo')+
+   sel('Document Type','status',['Structural Drawing','Architectural Drawing','RFI','MIR','WIR','Test Report']);
+  break;
+
  default:
- title=k.toUpperCase();
- fields=inp('Date','date','date')+inp('Project / Site','project')+
- inp('Activity / Item','item')+inp('Amount / Quantity','amount','number',false)+
- sel('Status','status',['Open','In Progress','Completed'])+area('Remarks','remarks');
+  title=k.toUpperCase();
+  fields=
+   inp('Date','date','date')+
+   inp('Project / Site','project')+
+   inp('Activity / Item','item')+
+   inp('Amount / Quantity','amount','number',false)+
+   sel('Status','status',['Open','In Progress','Completed'])+
+   area('Remarks','remarks');
  }
- c.innerHTML='<h2>'+title+'</h2><section class="card"><form id="recordForm">'+
- fields+'<label>Attach Photo / Bill Proof</label>'+
- '<input type="file" id="photos" accept="image/*" multiple>'+
- '<button class="btn" type="submit">💾 Save Record</button></form></section>'+
- '<section class="card"><h3>Saved Records</h3>'+
- table(k,[['date','Date'],['project','Project / Site'],['item','Item / Activity'],['amount','Amount'],['status','Status']])+
- '</section>';
- bind(k);
+
+ showForm(k,title,fields);
 }
+
+
+function statCard(title,value){
+ return '<div class="stat">'+esc(title)+
+ '<strong>'+value+'</strong></div>';
+}
+
+
+/* CONCRETE CALCULATOR */
 function calcConcrete(){
- let l=+document.querySelector('[name=length]').value;
- let w=+document.querySelector('[name=width]').value;
- let d=+document.querySelector('[name=depth]').value;
- if(l<=0||w<=0||d<=0){alert('Valid dimensions enter karein');return}
- document.getElementById('result').textContent='Concrete = '+(l*w*d).toFixed(3)+' m³';
+ const l=Number(document.querySelector('[name=length]').value);
+ const w=Number(document.querySelector('[name=width]').value);
+ const d=Number(document.querySelector('[name=depth]').value);
+
+ if(l<=0||w<=0||d<=0){
+  alert('Please enter valid dimensions.');
+  return;
+ }
+
+ document.getElementById('result').textContent=
+ 'Concrete Volume = '+(l*w*d).toFixed(3)+' m³';
 }
+
+
+/* STEEL CALCULATOR */
 function calcSteel(){
- let d=+document.querySelector('[name=dia]').value;
- let l=+document.querySelector('[name=length]').value;
- let n=+document.querySelector('[name=qty]').value;
- if(l<=0||n<=0){alert('Valid length aur quantity enter karein');return}
- document.getElementById('result').textContent='Steel weight = '+(d*d/162*l*n).toFixed(2)+' kg';
+ const dia=Number(document.querySelector('[name=dia]').value);
+ const len=Number(document.querySelector('[name=length]').value);
+ const qty=Number(document.querySelector('[name=qty]').value);
+
+ if(len<=0||qty<=0){
+  alert('Please enter valid length and quantity.');
+  return;
+ }
+
+ const weight=(dia*dia/162)*len*qty;
+
+ document.getElementById('result').textContent=
+ 'Total Steel Weight = '+weight.toFixed(2)+' kg';
 }
-function download(name,text,type){
- let a=document.createElement('a');
- a.href=URL.createObjectURL(new Blob([text],{type:type}));
- a.download=name;a.click();
+
+
+/* DOWNLOAD HELPERS */
+function downloadFile(name,content,type){
+ const blob=new Blob([content],{type:type});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+
+ a.href=url;
+ a.download=name;
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+
 function backup(){
- download('kanhai-erp-backup.json',JSON.stringify(getDB(),null,2),'application/json');
+ downloadFile(
+  'kanhai-infracon-backup.json',
+  JSON.stringify(getDB(),null,2),
+  'application/json'
+ );
 }
-function csv(){
- let d=getDB(),lines=['Department,Date,Project,Item,Amount,Status'];
- Object.keys(d).forEach(k=>(d[k]||[]).forEach(r=>{
-  lines.push([k,r.date,r.project,r.item,r.amount,r.status]
-  .map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(','));
- }));
- download('kanhai-erp-report.csv',lines.join('\r\n'),'text/csv');
+
+function csvExport(){
+ const d=getDB();
+
+ const lines=[
+  ['Department','Date','Project','Item','Amount','Status']
+ ];
+
+ Object.keys(d).forEach(k=>{
+  (d[k]||[]).forEach(r=>{
+   lines.push([
+    k,r.date,r.project,r.item,r.amount,r.status
+   ]);
+  });
+ });
+
+ const csv=lines.map(row=>
+  row.map(v=>
+   '"'+String(v??'').replace(/"/g,'""')+'"'
+  ).join(',')
+ ).join('\r\n');
+
+ downloadFile(
+  'kanhai-infracon-report.csv',
+  csv,
+  'text/csv;charset=utf-8;'
+ );
 }
 </script>
+
 </body>
 </html>
