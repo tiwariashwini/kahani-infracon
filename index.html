@@ -1,86 +1,1769 @@
-/* MOBILE: VERTICAL LEFT SIDEBAR */
-@media screen and (max-width:750px){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kahani Infracon | Site Management System</title>
 
-  #app .layout{
-    display:flex !important;
-    flex-direction:row !important;
-    align-items:stretch !important;
-    min-height:100vh;
+<style>
+:root {
+  --primary: #123b67;
+  --secondary: #087f8c;
+  --bg: #f3f6fa;
+  --white: #ffffff;
+  --text: #263445;
+  --muted: #68788a;
+  --border: #e0e7ef;
+  --green: #16845b;
+  --orange: #d97706;
+  --red: #dc3545;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 245px;
+  min-width: 245px;
+  background: var(--primary);
+  color: white;
+  padding: 20px 12px;
+}
+
+.brand {
+  padding: 10px 12px 22px;
+  border-bottom: 1px solid #ffffff30;
+  margin-bottom: 18px;
+}
+
+.brand h2 {
+  margin: 0 0 7px;
+  font-size: 21px;
+}
+
+.brand p {
+  margin: 0;
+  color: #d0dfed;
+  font-size: 12px;
+}
+
+.nav-label {
+  padding: 12px;
+  color: #b9ccdf;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: white;
+  margin: 3px 0;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background: #ffffff20;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  background: white;
+  min-height: 72px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.topbar p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.user-badge {
+  background: #e5eff9;
+  color: var(--primary);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.content {
+  padding: 25px;
+  max-width: 1500px;
+  margin: auto;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page-title {
+  margin: 0 0 7px;
+  font-size: 25px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 23px;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 12px #172b4d08;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+
+.stat-note {
+  color: var(--green);
+  font-size: 12px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 25px 0 15px;
+}
+
+.section-heading h3 {
+  margin: 0;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.panel h3 {
+  margin-top: 0;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 7px;
+  color: white;
+  background: var(--secondary);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.btn:hover {
+  opacity: .9;
+}
+
+.btn-dark {
+  background: var(--primary);
+}
+
+.btn-light {
+  background: #eaf0f6;
+  color: var(--primary);
+}
+
+.btn-danger {
+  background: var(--red);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.field input,
+.field select,
+.field textarea,
+.search-input {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ced8e3;
+  border-radius: 7px;
+  background: white;
+  color: var(--text);
+}
+
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 600px;
+}
+
+th, td {
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+th {
+  background: #f6f8fb;
+  color: #506175;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  background: #e2f5eb;
+  color: #13764e;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+.badge.pending {
+  background: #fff0d7;
+  color: #9a5a00;
+}
+
+.progress {
+  height: 8px;
+  background: #e8edf3;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--secondary);
+}
+
+.department-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.department-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.department-card h3 {
+  margin: 0 0 9px;
+}
+
+.department-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.chat-box {
+  height: 320px;
+  overflow-y: auto;
+  padding: 15px;
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.message {
+  padding: 11px 13px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.bot {
+  background: #e6f1fa;
+  margin-right: 15%;
+}
+
+.user-message {
+  background: #dff5eb;
+  margin-left: 15%;
+}
+
+.notice {
+  padding: 13px;
+  border-radius: 8px;
+  background: #fff5df;
+  color: #77520a;
+  line-height: 1.6;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.empty {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+}
+
+.footer {
+  padding: 20px 25px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #app .layout aside{
-    display:block !important;
-    flex:0 0 145px !important;
-    width:145px !important;
-    min-width:145px !important;
-    max-width:145px !important;
-    height:100vh !important;
-    position:sticky !important;
-    top:0 !important;
-    overflow-y:auto !important;
-    overflow-x:hidden !important;
-    padding:6px !important;
-    flex-wrap:nowrap !important;
+  .department-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #app .layout aside .brand{
-    display:block !important;
-    width:100% !important;
-    min-width:0 !important;
-    margin:0 0 10px !important;
-    padding:10px 6px !important;
-    border-right:0 !important;
-    border-bottom:3px solid #009c91 !important;
-    font-size:12px !important;
-    line-height:1.4 !important;
-  }
-
-  #app .layout aside .brand small{
-    font-size:9px !important;
-  }
-
-  #app .layout aside button{
-    display:block !important;
-    width:100% !important;
-    min-width:0 !important;
-    max-width:100% !important;
-    flex:0 0 auto !important;
-    white-space:normal !important;
-    overflow-wrap:anywhere !important;
-    padding:10px 6px !important;
-    margin:4px 0 !important;
-    font-size:11px !important;
-    text-align:left !important;
-  }
-
-  #app .layout main{
-    display:block !important;
-    flex:1 1 auto !important;
-    width:calc(100% - 145px) !important;
-    min-width:0 !important;
-    padding:8px !important;
-  }
-
-  .topinfo{
-    padding:10px !important;
-    font-size:12px;
-  }
-
-  .card{
-    padding:12px;
-    overflow-wrap:anywhere;
-  }
-
-  .statgrid{
-    grid-template-columns:1fr;
-  }
-
-  .tablebox{
-    max-width:100%;
-    overflow-x:auto;
-  }
-
-  table{
-    min-width:450px;
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
   }
 }
+
+@media (max-width: 700px) {
+  .app {
+    display: block;
+  }
+
+  .sidebar {
+    display: none;
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .sidebar.open {
+    display: block;
+  }
+
+  .brand {
+    padding-bottom: 13px;
+  }
+
+  .topbar {
+    padding: 14px;
+  }
+
+  .topbar h2 {
+    font-size: 16px;
+  }
+
+  .mobile-menu {
+    display: inline-block;
+    padding: 9px 12px;
+    border: 0;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .department-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .user-badge {
+    display: none;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <h2>KAHANI INFRACON</h2>
+      <p>Construction Management System</p>
+    </div>
+
+    <div class="nav-label">Main Menu</div>
+
+    <button class="nav-btn active" data-page="dashboard">▦ Dashboard</button>
+    <button class="nav-btn" data-page="departments">▤ Departments</button>
+    <button class="nav-btn" data-page="projects">🏗 Projects & Progress</button>
+    <button class="nav-btn" data-page="dpr">▣ DPR / DLR Reports</button>
+    <button class="nav-btn" data-page="billing">₹ Billing</button>
+    <button class="nav-btn" data-page="employees">♙ Employees</button>
+    <button class="nav-btn" data-page="quality">✓ Quality Control</button>
+    <button class="nav-btn" data-page="planning">◷ Planning</button>
+    <button class="nav-btn" data-page="safety">⛑ Safety</button>
+    <button class="nav-btn" data-page="ai">✦ AI Assistant</button>
+    <button class="nav-btn" data-page="admin">⚙ Admin Department</button>
+
+    <div class="nav-label">System</div>
+    <button class="nav-btn" data-page="settings">⚙ Settings & Backup</button>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="mobile-menu" id="menuBtn">☰</button>
+        <div>
+          <h2 id="topTitle">Dashboard</h2>
+          <p>Kahani Infracon | Site Management Portal</p>
+        </div>
+      </div>
+      <div class="user-badge">ADMIN / DEMO MODE</div>
+    </header>
+
+    <div class="content">
+
+      <section class="page active" id="dashboard">
+        <h1 class="page-title">Welcome to Kahani Infracon</h1>
+        <p class="subtitle">Construction Project Monitoring & Management Dashboard</p>
+
+        <div class="notice">
+          Demo mode: Data is stored in this browser only. This is not a secure,
+          multi-user company system. Enter your actual company information before use.
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="stat-label">Total Projects</div>
+            <div class="stat-value" id="statProjects">0</div>
+            <div class="stat-note">Projects entered in this browser</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Active Employees</div>
+            <div class="stat-value" id="statEmployees">0</div>
+            <div class="stat-note">Employee records entered</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">DPR / DLR Reports</div>
+            <div class="stat-value" id="statReports">0</div>
+            <div class="stat-note">Reports recorded</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Billing Entries</div>
+            <div class="stat-value" id="statBills">0</div>
+            <div class="stat-note">Billing records entered</div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <h3>Quick Actions</h3>
+        </div>
+
+        <div class="panel">
+          <div class="actions">
+            <button class="btn" data-goto="dpr">+ Add DPR Report</button>
+            <button class="btn btn-dark" data-goto="projects">+ Add Project</button>
+            <button class="btn" data-goto="billing">+ Add Billing Entry</button>
+            <button class="btn btn-light" data-goto="employees">+ Add Employee</button>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <h3>Recent Site Reports</h3>
+          <button class="btn btn-light" data-goto="dpr">View All</button>
+        </div>
+
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Project / Site</th>
+                <th>Work Description</th>
+                <th>Manpower</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentReports"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="departments">
+        <h1 class="page-title">Departments</h1>
+        <p class="subtitle">Construction company department directory.</p>
+        <div class="department-grid" id="departmentGrid"></div>
+      </section>
+
+      <section class="page" id="projects">
+        <h1 class="page-title">Projects & Site Progress</h1>
+        <p class="subtitle">Add projects and monitor progress.</p>
+
+        <div class="panel">
+          <h3>Add New Project</h3>
+          <form id="projectForm" class="form-grid">
+            <div class="field">
+              <label>Project Name *</label>
+              <input name="name" required placeholder="e.g. Residential Tower">
+            </div>
+            <div class="field">
+              <label>Site Location</label>
+              <input name="location" placeholder="Ahmedabad">
+            </div>
+            <div class="field">
+              <label>Project Manager</label>
+              <input name="manager" placeholder="Manager name">
+            </div>
+            <div class="field">
+              <label>Progress (%)</label>
+              <input name="progress" type="number" min="0" max="100" value="0">
+            </div>
+            <div class="field full">
+              <button class="btn">Save Project</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3>Project Register</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Project</th><th>Location</th><th>Manager</th>
+                  <th>Progress</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="projectsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="dpr">
+        <h1 class="page-title">Daily Progress Report (DPR / DLR)</h1>
+        <p class="subtitle">Daily work, manpower, equipment and site progress tracking.</p>
+
+        <div class="panel">
+          <h3>Create Daily Report</h3>
+          <form id="reportForm" class="form-grid">
+            <div class="field">
+              <label>Date *</label>
+              <input name="date" type="date" id="reportDate" required>
+            </div>
+            <div class="field">
+              <label>Project / Site *</label>
+              <input name="site" required placeholder="Project name">
+            </div>
+            <div class="field">
+              <label>Department</label>
+              <select name="department">
+                <option>Civil / Execution</option>
+                <option>Billing</option>
+                <option>Planning</option>
+                <option>Quality Control</option>
+                <option>Safety</option>
+                <option>Electrical</option>
+                <option>Admin</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Work Activity *</label>
+              <input name="work" required placeholder="Slab casting / Steel fixing">
+            </div>
+            <div class="field">
+              <label>Manpower</label>
+              <input name="manpower" type="number" min="0" value="0">
+            </div>
+            <div class="field">
+              <label>Equipment</label>
+              <input name="equipment" placeholder="Pump, crane, mixer">
+            </div>
+            <div class="field">
+              <label>Quantity Completed</label>
+              <input name="quantity" placeholder="e.g. 25 m³">
+            </div>
+            <div class="field">
+              <label>Work Status</label>
+              <select name="status">
+                <option>Completed</option>
+                <option>In Progress</option>
+                <option>Pending</option>
+                <option>On Hold</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Remarks / Issues</label>
+              <textarea name="remarks" placeholder="Site observations, delays, issues and next-day plan"></textarea>
+            </div>
+            <div class="field full">
+              <button class="btn">Save Daily Report</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="section-heading" style="margin-top:0">
+            <h3>Report Register</h3>
+            <button class="btn btn-light" id="exportReports">Export CSV</button>
+          </div>
+          <input class="search-input" id="reportSearch" placeholder="Search reports...">
+          <br><br>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th><th>Site</th><th>Activity</th><th>Manpower</th>
+                  <th>Quantity</th><th>Status</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="reportsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="billing">
+        <h1 class="page-title">Construction Billing</h1>
+        <p class="subtitle">Record RA bills, work values and payments.</p>
+
+        <div class="panel">
+          <h3>Add Billing Entry</h3>
+          <form id="billingForm" class="form-grid">
+            <div class="field">
+              <label>Date *</label>
+              <input type="date" name="date" required>
+            </div>
+            <div class="field">
+              <label>Project / Site *</label>
+              <input name="site" required>
+            </div>
+            <div class="field">
+              <label>Bill Type</label>
+              <select name="type">
+                <option>RA Bill</option>
+                <option>Final Bill</option>
+                <option>Subcontractor Bill</option>
+                <option>Material Bill</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Bill Number</label>
+              <input name="number" placeholder="RA-001">
+            </div>
+            <div class="field">
+              <label>Basic Amount (₹) *</label>
+              <input name="amount" type="number" min="0" step="0.01" required>
+            </div>
+            <div class="field">
+              <label>GST (%)</label>
+              <input name="gst" type="number" min="0" max="100" step="0.01" value="18">
+            </div>
+            <div class="field full">
+              <button class="btn">Save Billing Entry</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="stat-label">Basic Bill Value</div>
+            <div class="stat-value" id="totalBasic">₹0</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">GST Value</div>
+            <div class="stat-value" id="totalGST">₹0</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Total with GST</div>
+            <div class="stat-value" id="totalWithGST">₹0</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Number of Bills</div>
+            <div class="stat-value" id="billCount">0</div>
+          </div>
+        </div>
+
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th><th>Site</th><th>Bill Type</th><th>Bill No.</th>
+                <th>Basic (₹)</th><th>GST (₹)</th><th>Total (₹)</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="billingTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="employees">
+        <h1 class="page-title">Employee Management</h1>
+        <p class="subtitle">Maintain employee and site staff records.</p>
+
+        <div class="panel">
+          <h3>Add Employee</h3>
+          <form id="employeeForm" class="form-grid">
+            <div class="field">
+              <label>Employee Name *</label>
+              <input name="name" required>
+            </div>
+            <div class="field">
+              <label>Employee ID</label>
+              <input name="employeeId" placeholder="KI-001">
+            </div>
+            <div class="field">
+              <label>Department</label>
+              <select name="department">
+                <option>Civil / Execution</option>
+                <option>Billing</option>
+                <option>Planning</option>
+                <option>Quality Control</option>
+                <option>Safety</option>
+                <option>HR / Admin</option>
+                <option>Accounts</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Designation</label>
+              <input name="designation" placeholder="Site Engineer">
+            </div>
+            <div class="field">
+              <label>Site Location</label>
+              <input name="site">
+            </div>
+            <div class="field">
+              <label>Contact Number</label>
+              <input name="phone" type="tel">
+            </div>
+            <div class="field full">
+              <button class="btn">Save Employee</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3>Employee Register</h3>
+          <input class="search-input" id="employeeSearch" placeholder="Search employees...">
+          <br><br>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th><th>ID</th><th>Department</th>
+                  <th>Designation</th><th>Site</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="employeesTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="quality">
+        <h1 class="page-title">Quality Control</h1>
+        <p class="subtitle">Quality inspection register for construction activities.</p>
+
+        <div class="panel">
+          <h3>Site Quality Checklist</h3>
+          <div id="qualityChecklist"></div>
+          <br>
+          <button class="btn" id="saveChecklist">Save Checklist Status</button>
+        </div>
+
+        <div class="panel">
+          <h3>Important QC Checks</h3>
+          <ul style="line-height:2">
+            <li>Drawing revision and latest approved drawings.</li>
+            <li>Reinforcement diameter, spacing, lap and cover.</li>
+            <li>Shuttering line, level, dimensions and supports.</li>
+            <li>Concrete grade, slump, cube samples and pour records.</li>
+            <li>Waterproofing and curing records.</li>
+            <li>Inspection approval before concrete casting.</li>
+          </ul>
+          <p class="subtitle">Follow approved drawings, project specifications and the inspection test plan.</p>
+        </div>
+      </section>
+
+      <section class="page" id="planning">
+        <h1 class="page-title">Planning & Monitoring</h1>
+        <p class="subtitle">Monitor activities, target dates and progress.</p>
+
+        <div class="panel">
+          <h3>Add Planning Activity</h3>
+          <form id="planningForm" class="form-grid">
+            <div class="field">
+              <label>Activity *</label>
+              <input name="activity" required placeholder="Ground floor slab">
+            </div>
+            <div class="field">
+              <label>Responsible Person</label>
+              <input name="person">
+            </div>
+            <div class="field">
+              <label>Target Date</label>
+              <input name="date" type="date">
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <select name="status">
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+                <option>Delayed</option>
+              </select>
+            </div>
+            <div class="field full">
+              <button class="btn">Add Activity</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr><th>Activity</th><th>Responsible</th><th>Target Date</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="planningTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="safety">
+        <h1 class="page-title">Safety Department</h1>
+        <p class="subtitle">Site safety checklist and incident records.</p>
+
+        <div class="panel">
+          <h3>Daily Safety Checklist</h3>
+          <div id="safetyChecklist"></div>
+          <br>
+          <button class="btn" id="saveSafety">Save Safety Checklist</button>
+        </div>
+
+        <div class="panel">
+          <h3>Safety Reminder</h3>
+          <p>Check PPE, work-at-height protection, scaffolding, electrical safety,
+          lifting operations, housekeeping and emergency access. Report hazards promptly.</p>
+        </div>
+      </section>
+
+      <section class="page" id="ai">
+        <h1 class="page-title">AI Construction Assistant</h1>
+        <p class="subtitle">A basic offline assistant for common construction questions.</p>
+
+        <div class="notice">
+          This version does not connect to a real AI model or company database.
+          It answers a few predefined questions. Live AI requires a secure backend
+          and API key; never put a private API key in this HTML file.
+        </div>
+
+        <div class="panel">
+          <div class="chat-box" id="chatBox">
+            <div class="message bot">Namaste! Main Kahani Infracon demo assistant hoon.
+Ask me about concrete, billing, DPR, GST or BBS.</div>
+          </div>
+          <form id="chatForm" style="display:flex;gap:10px">
+            <input class="search-input" id="chatInput" placeholder="Type your construction question..." required>
+            <button class="btn">Send</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3>Try these questions</h3>
+          <div class="actions">
+            <button class="btn btn-light sampleQuestion" data-question="M25 concrete ka meaning kya hai?">M25 Concrete</button>
+            <button class="btn btn-light sampleQuestion" data-question="DPR kya hota hai?">DPR Meaning</button>
+            <button class="btn btn-light sampleQuestion" data-question="GST 18 percent kaise calculate karein?">GST Calculation</button>
+            <button class="btn btn-light sampleQuestion" data-question="BBS kya hota hai?">BBS Meaning</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="admin">
+        <h1 class="page-title">Admin Department</h1>
+        <p class="subtitle">Company administration and system overview.</p>
+
+        <div class="notice">
+          Important: This page is only a demo interface. It has no real login,
+          permissions enforcement, employee authentication or secure server.
+          Do not use it to store confidential company or employee information.
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="stat-label">Departments</div>
+            <div class="stat-value">8</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Project Records</div>
+            <div class="stat-value" id="adminProjects">0</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Employee Records</div>
+            <div class="stat-value" id="adminEmployees">0</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">Reports</div>
+            <div class="stat-value" id="adminReports">0</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Administration Responsibilities</h3>
+          <ul style="line-height:2">
+            <li>Employee onboarding and attendance records.</li>
+            <li>Document control and approved drawing register.</li>
+            <li>Project communication and reporting.</li>
+            <li>Material and subcontractor coordination.</li>
+            <li>Safety, quality and statutory documentation.</li>
+            <li>Role-based access and backups in the future secure system.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="page" id="settings">
+        <h1 class="page-title">Settings & Backup</h1>
+        <p class="subtitle">Export or import the data saved in this browser.</p>
+
+        <div class="notice">
+          Browser data may be lost if site data is cleared or a different browser/device
+          is used. Export backups regularly. Imported JSON replaces the current records.
+        </div>
+
+        <div class="panel">
+          <h3>Company Information</h3>
+          <form id="settingsForm" class="form-grid">
+            <div class="field">
+              <label>Company Name</label>
+              <input name="company" value="Kahani Infracon" required>
+            </div>
+            <div class="field">
+              <label>Office Location</label>
+              <input name="location" placeholder="Enter office location">
+            </div>
+            <div class="field full">
+              <label>Company Description</label>
+              <textarea name="description" placeholder="Construction and infrastructure"></textarea>
+            </div>
+            <div class="field full">
+              <button class="btn">Save Company Information</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3>Data Backup</h3>
+          <div class="actions">
+            <button class="btn" id="backupBtn">Download JSON Backup</button>
+            <button class="btn btn-light" id="exportAllCSV">Export DPR CSV</button>
+          </div>
+          <br>
+          <div class="field">
+            <label>Restore JSON Backup</label>
+            <input type="file" id="restoreFile" accept=".json,application/json">
+          </div>
+          <br>
+          <button class="btn btn-danger" id="clearData">Delete All Local Data</button>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="footer">
+      © <span id="year"></span> Kahani Infracon | Construction Management System
+    </footer>
+
+  </main>
+</div>
+
+<script>
+"use strict";
+
+const STORAGE_KEY = "kahaniInfraconDataV1";
+
+const defaultData = {
+  projects: [],
+  reports: [],
+  billing: [],
+  employees: [],
+  planning: [],
+  qualityChecks: {},
+  safetyChecks: {},
+  settings: {
+    company: "Kahani Infracon",
+    location: "",
+    description: ""
+  }
+};
+
+let data = loadData();
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return structuredClone(defaultData);
+
+    const parsed = JSON.parse(saved);
+
+    return {
+      ...structuredClone(defaultData),
+      ...parsed,
+      settings: {
+        ...defaultData.settings,
+        ...(parsed.settings || {})
+      }
+    };
+  } catch (error) {
+    console.error("Could not load saved data:", error);
+    return structuredClone(defaultData);
+  }
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    renderAll();
+    return true;
+  } catch (error) {
+    alert("Data save nahi hua. Browser storage full ho sakta hai.");
+    console.error(error);
+    return false;
+  }
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[ch]);
+}
+
+function money(value) {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 2
+  }).format(Number(value) || 0);
+}
+
+function today() {
+  const d = new Date();
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("reportDate").value = today();
+
+const pageTitles = {
+  dashboard: "Dashboard",
+  departments: "Departments",
+  projects: "Projects & Progress",
+  dpr: "DPR / DLR Reports",
+  billing: "Construction Billing",
+  employees: "Employee Management",
+  quality: "Quality Control",
+  planning: "Planning",
+  safety: "Safety Department",
+  ai: "AI Construction Assistant",
+  admin: "Admin Department",
+  settings: "Settings & Backup"
+};
+
+function openPage(id) {
+  if (!pageTitles[id]) return;
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+
+  document.getElementById("topTitle").textContent = pageTitles[id];
+  document.getElementById("sidebar").classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => openPage(button.dataset.page));
+});
+
+document.querySelectorAll("[data-goto]").forEach(button => {
+  button.addEventListener("click", () => openPage(button.dataset.goto));
+});
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+  document.getElementById("sidebar").classList.toggle("open");
+});
+
+function renderDepartments() {
+  const departments = [
+    ["Civil / Execution", "RCC work, shuttering, reinforcement, site execution and measurements."],
+    ["Billing", "BOQ, quantity takeoff, RA bills, subcontractor bills and reconciliation."],
+    ["Planning", "Project schedules, look-ahead plans, progress and delay monitoring."],
+    ["Quality Control", "Inspection checklists, concrete tests, cube records and quality documents."],
+    ["Safety", "PPE, permits, safety inspections and hazard reporting."],
+    ["HR & Admin", "Employee records, onboarding, documentation and administration."],
+    ["Accounts", "Cost tracking, invoices, payment follow-up and expense records."],
+    ["Procurement", "Material requests, purchase orders, delivery and stock coordination."]
+  ];
+
+  document.getElementById("departmentGrid").innerHTML = departments.map(item => `
+    <div class="department-card">
+      <h3>${esc(item[0])}</h3>
+      <p>${esc(item[1])}</p>
+    </div>
+  `).join("");
+}
+
+function renderProjects() {
+  const body = document.getElementById("projectsTable");
+
+  if (!data.projects.length) {
+    body.innerHTML = '<tr><td colspan="5" class="empty">No projects added yet.</td></tr>';
+  } else {
+    body.innerHTML = data.projects.map(p => `
+      <tr>
+        <td>${esc(p.name)}</td>
+        <td>${esc(p.location || "-")}</td>
+        <td>${esc(p.manager || "-")}</td>
+        <td>
+          ${Number(p.progress) || 0}%
+          <div class="progress"><span style="width:${Math.max(0, Math.min(100, Number(p.progress) || 0))}%"></span></div>
+        </td>
+        <td><button class="btn btn-danger" data-delete="projects" data-id="${esc(p.id)}">Delete</button></td>
+      </tr>
+    `).join("");
+  }
+}
+
+function renderReports() {
+  const body = document.getElementById("reportsTable");
+  const query = (document.getElementById("reportSearch").value || "").toLowerCase();
+
+  const filtered = data.reports.filter(r =>
+    [r.date, r.site, r.work, r.department, r.status]
+      .join(" ").toLowerCase().includes(query)
+  );
+
+  if (!filtered.length) {
+    body.innerHTML = '<tr><td colspan="7" class="empty">No matching reports.</td></tr>';
+  } else {
+    body.innerHTML = filtered.map(r => `
+      <tr>
+        <td>${esc(r.date)}</td>
+        <td>${esc(r.site)}</td>
+        <td>${esc(r.work)}</td>
+        <td>${esc(r.manpower)}</td>
+        <td>${esc(r.quantity || "-")}</td>
+        <td><span class="badge ${r.status === "Pending" || r.status === "On Hold" ? "pending" : ""}">${esc(r.status)}</span></td>
+        <td><button class="btn btn-danger" data-delete="reports" data-id="${esc(r.id)}">Delete</button></td>
+      </tr>
+    `).join("");
+  }
+
+  const recent = data.reports.slice().reverse().slice(0, 5);
+  document.getElementById("recentReports").innerHTML = recent.length
+    ? recent.map(r => `
+      <tr>
+        <td>${esc(r.date)}</td>
+        <td>${esc(r.site)}</td>
+        <td>${esc(r.work)}</td>
+        <td>${esc(r.manpower)}</td>
+        <td>${esc(r.status)}</td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="5" class="empty">No reports available.</td></tr>';
+}
+
+function renderBilling() {
+  const body = document.getElementById("billingTable");
+
+  if (!data.billing.length) {
+    body.innerHTML = '<tr><td colspan="8" class="empty">No billing entries added.</td></tr>';
+  } else {
+    body.innerHTML = data.billing.map(b => {
+      const gst = (Number(b.amount) || 0) * (Number(b.gst) || 0) / 100;
+      return `
+        <tr>
+          <td>${esc(b.date)}</td>
+          <td>${esc(b.site)}</td>
+          <td>${esc(b.type)}</td>
+          <td>${esc(b.number || "-")}</td>
+          <td>${money(b.amount)}</td>
+          <td>${money(gst)}</td>
+          <td>${money(Number(b.amount) + gst)}</td>
+          <td><button class="btn btn-danger" data-delete="billing" data-id="${esc(b.id)}">Delete</button></td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  const basic = data.billing.reduce((sum, b) => sum + (Number(b.amount) || 0), 0);
+  const gst = data.billing.reduce((sum, b) => sum + (Number(b.amount) || 0) * (Number(b.gst) || 0) / 100, 0);
+
+  document.getElementById("totalBasic").textContent = money(basic);
+  document.getElementById("totalGST").textContent = money(gst);
+  document.getElementById("totalWithGST").textContent = money(basic + gst);
+  document.getElementById("billCount").textContent = data.billing.length;
+}
+
+function renderEmployees() {
+  const body = document.getElementById("employeesTable");
+  const query = (document.getElementById("employeeSearch").value || "").toLowerCase();
+
+  const filtered = data.employees.filter(e =>
+    [e.name, e.employeeId, e.department, e.designation, e.site]
+      .join(" ").toLowerCase().includes(query)
+  );
+
+  body.innerHTML = filtered.length
+    ? filtered.map(e => `
+      <tr>
+        <td>${esc(e.name)}</td>
+        <td>${esc(e.employeeId || "-")}</td>
+        <td>${esc(e.department)}</td>
+        <td>${esc(e.designation || "-")}</td>
+        <td>${esc(e.site || "-")}</td>
+        <td><button class="btn btn-danger" data-delete="employees" data-id="${esc(e.id)}">Delete</button></td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="6" class="empty">No matching employees.</td></tr>';
+}
+
+function renderPlanning() {
+  const body = document.getElementById("planningTable");
+
+  body.innerHTML = data.planning.length
+    ? data.planning.map(p => `
+      <tr>
+        <td>${esc(p.activity)}</td>
+        <td>${esc(p.person || "-")}</td>
+        <td>${esc(p.date || "-")}</td>
+        <td>${esc(p.status)}</td>
+        <td><button class="btn btn-danger" data-delete="planning" data-id="${esc(p.id)}">Delete</button></td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="5" class="empty">No planning activities added.</td></tr>';
+}
+
+function renderChecks(containerId, group, items) {
+  const container = document.getElementById(containerId);
+
+  container.innerHTML = items.map((item, index) => `
+    <label style="display:flex;gap:10px;align-items:flex-start;padding:12px;border-bottom:1px solid var(--border)">
+      <input type="checkbox" data-check-group="${group}" data-check-index="${index}" ${data[group][index] ? "checked" : ""}>
+      <span>${esc(item)}</span>
+    </label>
+  `).join("");
+}
+
+const qualityItems = [
+  "Latest approved drawing checked",
+  "Reinforcement diameter and spacing checked",
+  "Cover blocks and lap lengths checked",
+  "Shuttering line, level and supports checked",
+  "Pre-pour inspection completed",
+  "Concrete grade and slump verified",
+  "Cube samples and pour records completed",
+  "Curing and post-pour inspection planned"
+];
+
+const safetyItems = [
+  "Helmet, safety shoes and required PPE checked",
+  "Work-at-height protection and lifelines checked",
+  "Scaffolding and access inspected",
+  "Electrical cables and temporary power checked",
+  "Lifting tools and equipment inspected",
+  "Housekeeping and emergency access maintained",
+  "Toolbox talk conducted",
+  "Unsafe conditions reported and controlled"
+];
+
+function renderAll() {
+  renderDepartments();
+  renderProjects();
+  renderReports();
+  renderBilling();
+  renderEmployees();
+  renderPlanning();
+
+  renderChecks("qualityChecklist", "qualityChecks", qualityItems);
+  renderChecks("safetyChecklist", "safetyChecks", safetyItems);
+
+  document.getElementById("statProjects").textContent = data.projects.length;
+  document.getElementById("statEmployees").textContent = data.employees.length;
+  document.getElementById("statReports").textContent = data.reports.length;
+  document.getElementById("statBills").textContent = data.billing.length;
+
+  document.getElementById("adminProjects").textContent = data.projects.length;
+  document.getElementById("adminEmployees").textContent = data.employees.length;
+  document.getElementById("adminReports").textContent = data.reports.length;
+
+  const settingsForm = document.getElementById("settingsForm");
+  for (const key of ["company", "location", "description"]) {
+    settingsForm.elements[key].value = data.settings[key] || "";
+  }
+
+  document.title = (data.settings.company || "Kahani Infracon") + " | Site Management";
+  document.querySelector(".brand h2").textContent = data.settings.company || "Kahani Infracon";
+}
+
+document.getElementById("projectForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+
+  data.projects.push({
+    id: uid(),
+    name: form.get("name").trim(),
+    location: form.get("location").trim(),
+    manager: form.get("manager").trim(),
+    progress: Math.max(0, Math.min(100, Number(form.get("progress")) || 0))
+  });
+
+  if (saveData()) {
+    event.currentTarget.reset();
+    alert("Project saved.");
+  }
+});
+
+document.getElementById("reportForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+
+  data.reports.push({
+    id: uid(),
+    date: form.get("date"),
+    site: form.get("site").trim(),
+    department: form.get("department"),
+    work: form.get("work").trim(),
+    manpower: Number(form.get("manpower")) || 0,
+    equipment: form.get("equipment").trim(),
+    quantity: form.get("quantity").trim(),
+    status: form.get("status"),
+    remarks: form.get("remarks").trim()
+  });
+
+  if (saveData()) {
+    event.currentTarget.reset();
+    document.getElementById("reportDate").value = today();
+    alert("Daily report saved.");
+  }
+});
+
+document.getElementById("billingForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+
+  data.billing.push({
+    id: uid(),
+    date: form.get("date"),
+    site: form.get("site").trim(),
+    type: form.get("type"),
+    number: form.get("number").trim(),
+    amount: Number(form.get("amount")) || 0,
+    gst: Math.max(0, Math.min(100, Number(form.get("gst")) || 0))
+  });
+
+  if (saveData()) {
+    event.currentTarget.reset();
+    alert("Billing entry saved.");
+  }
+});
+
+document.getElementById("employeeForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+
+  data.employees.push({
+    id: uid(),
+    name: form.get("name").trim(),
+    employeeId: form.get("employeeId").trim(),
+    department: form.get("department"),
+    designation: form.get("designation").trim(),
+    site: form.get("site").trim(),
+    phone: form.get("phone").trim()
+  });
+
+  if (saveData()) {
+    event.currentTarget.reset();
+    alert("Employee record saved.");
+  }
+});
+
+document.getElementById("planningForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+
+  data.planning.push({
+    id: uid(),
+    activity: form.get("activity").trim(),
+    person: form.get("person").trim(),
+    date: form.get("date"),
+    status: form.get("status")
+  });
+
+  if (saveData()) {
+    event.currentTarget.reset();
+    alert("Planning activity saved.");
+  }
+});
+
+document.getElementById("settingsForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+
+  data.settings = {
+    company: form.get("company").trim(),
+    location: form.get("location").trim(),
+    description: form.get("description").trim()
+  };
+
+  if (saveData()) alert("Company information saved.");
+});
+
+document.getElementById("saveChecklist").addEventListener("click", () => {
+  data.qualityChecks = {};
+  document.querySelectorAll('[data-check-group="qualityChecks"]').forEach(box => {
+    data.qualityChecks[box.dataset.checkIndex] = box.checked;
+  });
+
+  if (saveData()) alert("Quality checklist saved.");
+});
+
+document.getElementById("saveSafety").addEventListener("click", () => {
+  data.safetyChecks = {};
+  document.querySelectorAll('[data-check-group="safetyChecks"]').forEach(box => {
+    data.safetyChecks[box.dataset.checkIndex] = box.checked;
+  });
+
+  if (saveData()) alert("Safety checklist saved.");
+});
+
+document.addEventListener("click", event => {
+  const button = event.target.closest("[data-delete]");
+  if (!button) return;
+
+  const collection = button.dataset.delete;
+  const id = button.dataset.id;
+
+  if (!Object.hasOwn(data, collection) || !Array.isArray(data[collection])) return;
+
+  if (!confirm("Kya aap is record ko delete karna chahte hain?")) return;
+
+  data[collection] = data[collection].filter(item => item.id !== id);
+  saveData();
+});
+
+document.getElementById("reportSearch").addEventListener("input", renderReports);
+document.getElementById("employeeSearch").addEventListener("input", renderEmployees);
+
+function downloadFile(filename, content, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportCSV(rows, filename) {
+  if (!rows.length) {
+    alert("Export karne ke liye data nahi hai.");
+    return;
+  }
+
+  const columns = Object.keys(rows[0]);
+  const quote = value => '"' + String(value ?? "").replace(/"/g, '""') + '"';
+
+  const csv = [
+    columns.map(quote).join(","),
+    ...rows.map(row => columns.map(key => quote(row[key])).join(","))
+  ].join("\r\n");
+
+  downloadFile(filename, "\uFEFF" + csv, "text/csv;charset=utf-8;");
+}
+
+document.getElementById("exportReports").addEventListener("click", () => {
+  exportCSV(data.reports, "kahani-infracon-dpr.csv");
+});
+
+document.getElementById("exportAllCSV").addEventListener("click", () => {
+  exportCSV(data.reports, "kahani-infracon-dpr.csv");
+});
+
+document.getElementById("backupBtn").addEventListener("click", () => {
+  downloadFile(
+    "kahani-infracon-backup.json",
+    JSON.stringify(data, null, 2),
+    "application/json"
+  );
+});
+
+document.getElementById("restoreFile").addEventListener("change", async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  try {
+    const imported = JSON.parse(await file.text());
+
+    const valid = imported &&
+      Array.isArray(imported.projects) &&
+      Array.isArray(imported.reports) &&
+      Array.isArray(imported.billing) &&
+      Array.isArray(imported.employees) &&
+      Array.isArray(imported.planning);
+
+    if (!valid) {
+      alert("Invalid backup file format.");
+      return;
+    }
+
+    if (!confirm("Import karne se current records replace ho jayenge. Continue?")) return;
+
+    data = {
+      ...structuredClone(defaultData),
+      ...imported,
+      settings: {
+        ...defaultData.settings,
+        ...(imported.settings || {})
+      }
+    };
+
+    if (saveData()) alert("Backup restored successfully.");
+  } catch (error) {
+    alert("File read nahi hui. Valid JSON backup select karein.");
+  } finally {
+    event.target.value = "";
+  }
+});
+
+document.getElementById("clearData").addEventListener("click", () => {
+  const first = confirm("Warning: Saara local project, report, billing aur employee data delete ho jayega. Kya aapne backup download kar liya hai?");
+  if (!first) return;
+
+  const second = confirm("Final confirmation: Permanently delete all local records?");
+  if (!second) return;
+
+  data = structuredClone(defaultData);
+
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    renderAll();
+    alert("Local data deleted.");
+  } catch (error) {
+    alert("Data clear nahi ho saka.");
+  }
+});
+
+function assistantReply(question) {
+  const q = question.toLowerCase();
+
+  if (q.includes("m25") || q.includes("concrete grade")) {
+    return "M25 concrete ka specified characteristic compressive strength 28 days par 25 N/mm² hota hai. Mix design aur site acceptance ke liye approved specifications follow karein.";
+  }
+
+  if (q.includes("dpr") || q.includes("dlr")) {
+    return "DPR = Daily Progress Report. Ismein date, site, activity, manpower, equipment, completed quantity, delays, remarks aur next-day plan record karein.";
+  }
+
+  if (q.includes("gst")) {
+    return "GST calculation: GST = Basic Amount × GST Rate ÷ 100. Example: ₹10,000 par 18% GST = ₹1,800. Total = ₹11,800. Actual tax treatment invoice aur applicable rules par depend karta hai.";
+  }
+
+  if (q.includes("bbs") || q.includes("bar bending")) {
+    return "BBS = Bar Bending Schedule. Ismein bar mark, diameter, shape, cutting length, quantity aur total steel weight hota hai. Common theoretical unit weight formula: d²/162 kg/m, jahan d diameter mm mein hai.";
+  }
+
+  if (q.includes("pile")) {
+    return "Circular pile concrete volume formula: V = π × D²/4 × depth × number of piles. Diameter aur depth ko metres mein use karein. Actual concrete consumption mein site wastage aur overbreak alag consider karein.";
+  }
+
+  if (q.includes("billing") || q.includes("ra bill")) {
+    return "RA Bill = Running Account Bill. Approved BOQ items, joint measurements, previous certified quantity, current quantity, cumulative quantity, rate aur deductions verify karein.";
+  }
+
+  if (q.includes("slab") || q.includes("steel")) {
+    return "Slab steel check mein approved structural drawing, bar diameter, spacing, top/bottom reinforcement, extra bars, lap/anchorage, cover blocks aur openings verify karein. Concrete se pehle inspection approval lein.";
+  }
+
+  if (q.includes("hello") || q.includes("namaste") || q.includes("hi")) {
+    return "Namaste! Main construction demo assistant hoon. Aap DPR, concrete, GST, billing, pile volume ya BBS ke baare mein pooch sakte hain.";
+  }
+
+  return "Yeh demo assistant abhi limited offline answers deta hai. Is sawal ka live AI jawab dene ke liye secure backend aur AI API integration chahiye. Main DPR, M25 concrete, GST, billing, pile volume aur BBS jaise basic topics par help kar sakta hoon.";
+}
+
+function sendChat(question) {
+  const box = document.getElementById("chatBox");
+
+  const userMessage = document.createElement("div");
+  userMessage.className = "message user-message";
+  userMessage.textContent = question;
+  box.appendChild(userMessage);
+
+  const answer = document.createElement("div");
+  answer.className = "message bot";
+  answer.textContent = assistantReply(question);
+  box.appendChild(answer);
+
+  box.scrollTop = box.scrollHeight;
+}
+
+document.getElementById("chatForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const input = document.getElementById("chatInput");
+  const question = input.value.trim();
+
+  if (!question) return;
+
+  sendChat(question);
+  input.value = "";
+  input.focus();
+});
+
+document.querySelectorAll(".sampleQuestion").forEach(button => {
+  button.addEventListener("click", () => {
+    sendChat(button.dataset.question);
+  });
+});
+
+renderAll();
+</script>
+</body>
+</html>
